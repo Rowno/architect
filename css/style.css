@@ -13,3 +13,9 @@ body {
 .error {
     border: 2px solid red;
 }
+
+@media (max-width: 350px) {
+    #ribbon {
+        display: none;
+    }
+}
