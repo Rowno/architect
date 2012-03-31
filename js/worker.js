@@ -37,26 +37,26 @@
         };
 
 
-    self.addEventListener('message', function (e) {
-        switch (e.data.cmd) {
+    self.addEventListener('message', function (event) {
+        switch (event.data.cmd) {
         case 'init':
-            activeEngine = e.data.id;
+            activeEngine = event.data.id;
             importScripts('engines/' + activeEngine + '.min.js');
             break;
 
         case 'render':
             try {
-                engines[activeEngine](e.data.template, e.data.view, function (error, result) {
+                engines[activeEngine](event.data.template, event.data.view, function (error, result) {
                     self.postMessage({
                         error: error,
                         result: result
                     });
                 });
-            } catch (e) {
+            } catch (error) {
                 self.postMessage({
                     error: {
-                        name: e.name,
-                        message: e.message
+                        name: error.name,
+                        message: error.message
                     },
                     result: null
                 });

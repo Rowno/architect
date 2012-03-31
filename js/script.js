@@ -126,8 +126,8 @@
 
 
         function init() {
-            worker.addEventListener('message', function (e) {
-                events.emit('message', e.data);
+            worker.addEventListener('message', function (event) {
+                events.emit('message', event.data);
             }, false);
 
             commands.init();
@@ -161,7 +161,7 @@
     try {
         defaultTemplate = localStorage.getItem('architect.template') || defaultTemplate;
         defaultView = localStorage.getItem('architect.view') || defaultView;
-    } catch (e) {}
+    } catch (error) {}
 
 
     // Initialise the engine select
@@ -194,7 +194,7 @@
         try {
             json = JSON.parse(view);
             viewElement.classList.remove('error');
-        } catch (e) {
+        } catch (error) {
             viewElement.classList.add('error');
         }
 
@@ -238,6 +238,6 @@
         try {
             localStorage.setItem('architect.template', template);
             localStorage.setItem('architect.view', view);
-        } catch (e) {}
+        } catch (error) {}
     }, SAVE_INTERVAL);
 }(Mustache, ace, require));
