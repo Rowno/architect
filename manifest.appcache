@@ -13,7 +13,18 @@ img/glyphicons-halflings.png
 js/ace/ace.js
 js/ace/mode-json.js
 js/ace/mode-html.js
+
+js/engines/dot.min.js
+js/engines/ejs.min.js
+js/engines/haml.min.js
+js/engines/handlebars.min.js
+js/engines/hogan.min.js
+js/engines/jade.min.js
+js/engines/john-resig-micro.min.js
 js/engines/mustache.min.js
+js/engines/pure.min.js
+js/engines/underscore.min.js
+
 js/modernizr.min.js
 js/script.js
 

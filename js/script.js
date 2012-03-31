@@ -12,7 +12,69 @@
         viewElement = document.getElementById('view'),
         resultEditor = ace.edit('result'),
         defaultTemplate = document.getElementById('default-template').innerHTML,
-        defaultView = document.getElementById('default-view').innerHTML;
+        defaultView = document.getElementById('default-view').innerHTML,
+        engines = {
+            dot: {
+                name: 'doT.js',
+                version: '0.1.7',
+                size: '2.2',
+                url: 'https://github.com/olado/doT'
+            },
+            ejs: {
+                name: 'EJS',
+                version: '0.6.1',
+                size: '6.1',
+                url: 'https://github.com/visionmedia/ejs'
+            },
+            haml: {
+                name: 'Haml.js',
+                version: '0.4.2',
+                size: '8.6',
+                url: 'https://github.com/creationix/haml-js'
+            },
+            handlebars: {
+                name: 'Handlebars.js',
+                version: '1.0.6beta',
+                size: '30.3',
+                url: 'https://github.com/wycats/handlebars.js'
+            },
+            hogan: {
+                name: 'Hogan.js',
+                version: '2.0.0',
+                size: '5.9',
+                url: 'https://github.com/twitter/hogan.js'
+            },
+            jade: {
+                name: 'Jade',
+                version: '0.21.0',
+                size: '34.6',
+                url: 'https://github.com/visionmedia/jade'
+            },
+            'john-resig-micro': {
+                name: 'John Resig Micro',
+                version: 'N/A',
+                size: '0.5',
+                url: 'http://ejohn.org/blog/javascript-micro-templating/'
+            },
+            mustache: {
+                name: 'Mustache.js',
+                version: '0.4.2',
+                size: '4.5',
+                url: 'https://github.com/janl/mustache.js'
+            },
+            pure: {
+                name: 'PURE',
+                version: '2.73',
+                size: '11.3',
+                url: 'https://github.com/pure/pure'
+            },
+            underscore: {
+                name: 'Underscore.js',
+                version: '1.3.1',
+                size: '12.1',
+                url: 'https://github.com/documentcloud/underscore'
+            }
+        };
 
 
     // Restore application state
