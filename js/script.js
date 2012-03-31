@@ -1,39 +1,63 @@
 /*jslint browser: true */
 /*globals Mustache: false, ace: false, require: false */
 
-(function (document, Mustache, ace, require) {
+(function (Mustache, ace, require) {
     'use strict';
 
-    var JSONMode = require("ace/mode/json").Mode,
+    var SAVE_INTERVAL = 5000,
+        JSONMode = require("ace/mode/json").Mode,
         HTMLMode = require("ace/mode/html").Mode,
-        template = ace.edit('template'),
-        view = ace.edit('view'),
+        templateEditor = ace.edit('template'),
+        viewEditor = ace.edit('view'),
         viewElement = document.getElementById('view'),
-        result = ace.edit('result');
+        resultEditor = ace.edit('result'),
+        defaultTemplate = document.getElementById('default-template').innerHTML,
+        defaultView = document.getElementById('default-view').innerHTML;
 
 
-    template.getSession().setMode(new HTMLMode());
-    template.getSession().setValue(document.getElementById('template-default').innerHTML);
-    view.getSession().setMode(new JSONMode());
-    view.getSession().setValue(document.getElementById('view-default').innerHTML);
-    result.getSession().setMode(new HTMLMode());
-    result.setReadOnly(true);
+    // Restore application state
+    try {
+        defaultTemplate = localStorage.getItem('template-tester.template') || defaultTemplate;
+        defaultView = localStorage.getItem('template-tester.view') || defaultView;
+    } catch (e) {}
+
+
+    // Initialise the editors
+    templateEditor.getSession().setMode(new HTMLMode());
+    templateEditor.getSession().setValue(defaultTemplate);
+    viewEditor.getSession().setMode(new JSONMode());
+    viewEditor.getSession().setValue(defaultView);
+    resultEditor.getSession().setMode(new HTMLMode());
+    resultEditor.setReadOnly(true);
 
     function render() {
-        var json = {};
+        var json = {},
+            view = viewEditor.getSession().getValue(),
+            template = templateEditor.getSession().getValue();
 
         try {
-            json = JSON.parse(view.getSession().getValue());
+            json = JSON.parse(view);
             viewElement.classList.remove('error');
         } catch (e) {
             viewElement.classList.add('error');
         }
 
-        result.getSession().setValue(Mustache.to_html(template.getSession().getValue(), json));
+        result.getSession().setValue(Mustache.to_html(template, json));
     }
 
-    template.getSession().on('change', render);
-    view.getSession().on('change', render);
+    templateEditor.getSession().on('change', render);
+    viewEditor.getSession().on('change', render);
 
     render();
-}(document, Mustache, ace, require));
+
+    // Save application state
+    setInterval(function () {
+        var view = viewEditor.getSession().getValue(),
+            template = templateEditor.getSession().getValue();
+
+        try {
+            localStorage.setItem('template-tester.template', template);
+            localStorage.setItem('template-tester.view', view);
+        } catch (e) {}
+    }, SAVE_INTERVAL);
+}(Mustache, ace, require));
