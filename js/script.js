@@ -57,12 +57,6 @@
                 size: '34.6',
                 url: 'https://github.com/visionmedia/jade'
             },
-            'john-resig-micro': {
-                name: 'John Resig Micro',
-                version: 'N/A',
-                size: '0.5',
-                url: 'http://ejohn.org/blog/javascript-micro-templating/'
-            },
             mustache: {
                 name: 'Mustache.js',
                 version: '0.4.2',
@@ -71,12 +65,6 @@
                 render: function (template, view, callback) {
                     callback(null, Mustache.to_html(template, view));
                 }
-            },
-            pure: {
-                name: 'PURE',
-                version: '2.73',
-                size: '11.3',
-                url: 'https://github.com/pure/pure'
             },
             underscore: {
                 name: 'Underscore.js',

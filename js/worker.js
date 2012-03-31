@@ -28,14 +28,8 @@
                 var compiledTemplate = jade.compile(template);
                 callback(null, compiledTemplate(view));
             },
-            'john-resig-micro': function (template, view, callback) {
-                callback(null, '');
-            },
             mustache: function (template, view, callback) {
                 callback(null, Mustache.to_html(template, view));
-            },
-            pure: function (template, view, callback) {
-                callback(null, '');
             },
             underscore: function (template, view, callback) {
                 callback(null, _.template(template, view));

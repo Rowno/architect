@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# c6c60619e7a605221f37e054873167db9bb46ba9
+# 35d67e26c4d462edb4fa599b920106fbe02a838f
 
 
 CACHE:
@@ -20,9 +20,7 @@ js/engines/haml.min.js
 js/engines/handlebars.min.js
 js/engines/hogan.min.js
 js/engines/jade.min.js
-js/engines/john-resig-micro.min.js
 js/engines/mustache.min.js
-js/engines/pure.min.js
 js/engines/underscore.min.js
 
 js/modernizr.min.js
