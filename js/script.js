@@ -6,7 +6,7 @@
 
     var SAVE_INTERVAL = 5000,
         activeEngine = 'mustache',
-        worker = new Worker('js/worker.js'),
+        renderingWorker,
         JSONMode = require("ace/mode/json").Mode,
         HTMLMode = require("ace/mode/html").Mode,
         templateEditor = ace.edit('template'),
@@ -87,17 +87,93 @@
         };
 
 
+    function EventEmitter() {
+        if (!(this instanceof EventEmitter)) {
+            return new EventEmitter();
+        }
+
+        var listeners = {};
+
+        this.on = function (topic, callback) {
+            if (!listeners[topic]) {
+                listeners[topic] = [];
+            }
+
+            listeners[topic].push(callback);
+        };
+
+        this.emit = function (topic, data) {
+            if (listeners[topic]) {
+                listeners[topic].forEach(function (callback) {
+                    callback(data);
+                });
+            }
+        };
+    }
+
+
+    function RenderingWorker(initEngine) {
+        if (!(this instanceof RenderingWorker)) {
+            return new RenderingWorker(initEngine);
+        }
+
+        var engine = initEngine,
+            worker = new Worker('js/worker.js'),
+            events = new EventEmitter(),
+            commands = {
+                init: function () {
+                    worker.postMessage({
+                        cmd: 'init',
+                        id: engine
+                    });
+                },
+                render: function (template, view) {
+                    worker.postMessage({
+                        cmd: 'render',
+                        template: template,
+                        view: view
+                    });
+                }
+            };
+
+
+        function init() {
+            worker.addEventListener('message', function (e) {
+                events.emit('message', e.data);
+            }, false);
+
+            commands.init();
+        }
+
+
+        this.changeEngine = function (newEngine) {
+            engine = newEngine;
+
+            worker.terminate();
+            worker = new Worker('js/worker.js');
+            init();
+        };
+
+        this.render = function (template, view) {
+            commands.render(template, view);
+        };
+
+        this.on = function (topic, callback) {
+            events.on.call(events, topic, callback);
+        };
+
+        init();
+    }
+
+
+    renderingWorker = new RenderingWorker(activeEngine);
+
+
     // Restore application state
     try {
         defaultTemplate = localStorage.getItem('architect.template') || defaultTemplate;
         defaultView = localStorage.getItem('architect.view') || defaultView;
     } catch (e) {}
-
-
-    worker.postMessage({
-        cmd: 'init',
-        id: activeEngine
-    });
 
 
     // Initialise the engine select
@@ -134,11 +210,7 @@
             viewElement.classList.add('error');
         }
 
-        worker.postMessage({
-            cmd: 'render',
-            template: template,
-            view: json
-        });
+        renderingWorker.render(template, json);
     }
 
 
@@ -148,23 +220,18 @@
 
     engineElement.addEventListener('change', function () {
         activeEngine = engineElement.value;
-
-        worker.terminate();
-        worker = new Worker('js/worker.js');
-        worker.postMessage({
-            cmd: 'init',
-            id: activeEngine
-        });
+        renderingWorker.changeEngine(activeEngine);
+        render();
     }, false);
 
-    worker.addEventListener('message', function (e) {
-        if (e.data.error) {
+    renderingWorker.on('message', function (data) {
+        if (data.error) {
             templateElement.classList.add('error');
         } else {
             templateElement.classList.remove('error');
-            resultEditor.getSession().setValue(e.data.result);
+            resultEditor.getSession().setValue(data.result);
         }
-    }, false);
+    });
 
 
     // Initial render
