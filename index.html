@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
     <link rel="stylesheet" href="css/style.css">
+
+    <script src="js/modernizr.min.js"></script>
 </head>
 <body class="container-fluid">
     <header class="page-header">
@@ -24,7 +26,7 @@
     <div role="main">
         <div class="row-fluid">
             <div class="span12">
-                <!--[if lt IE 9]><div class="alert alert-error">Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</div><![endif]-->
+                <div id="unsupported" class="alert alert-error">Your browser does not support the required features. <a href="http://browsehappy.com/">Upgrade to a different browser</a> <!--[if IE]>or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> <![endif]-->to experience this site.</div>
                 <div class="alert alert-info">At the moment only Mustache templates are supported.</div>
             </div>
         </div>
@@ -50,12 +52,12 @@
     </div>
 
     <footer>
-        <a href="http://www.w3.org/html/logo/"><img src="http://www.w3.org/html/logo/badge/html5-badge-h-css3-semantics.png" width="165" height="64" alt="HTML5 Powered with CSS3 / Styling, and Semantics" title="HTML5 Powered with CSS3 / Styling, and Semantics"></a>
+        <a href="http://www.w3.org/html/logo/"><img src="http://www.w3.org/html/logo/badge/html5-badge-h-css3-performance-semantics-storage.png" width="229" height="64" alt="HTML5 Powered with CSS3 / Styling, Performance &amp; Integration, Semantics, and Offline &amp; Storage" title="HTML5 Powered with CSS3 / Styling, Performance &amp; Integration, Semantics, and Offline &amp; Storage"></a>
 
         <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons Attribution-ShareAlike 3.0 Unported License" title="Creative Commons Attribution-ShareAlike 3.0 Unported License" src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png" width="88" height="31"></a>
     </footer>
 
-    <a href="https://github.com/Rowno/template-tester" id="ribbon"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/71eeaab9d563c2b3c590319b398dd35683265e85/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" width="149" height="149"></a>
+    <a href="https://github.com/Rowno/template-tester" id="ribbon"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://a248.e.akamai.net/assets.github.com/img/71eeaab9d563c2b3c590319b398dd35683265e85/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" width="149" height="149"></a>
 
 
 <script id="template-default" type="text/mustache"><h1>{{header}}</h1>

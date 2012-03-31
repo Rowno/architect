@@ -4,6 +4,10 @@ body {
     overflow-y: scroll; /* Workaround for Ace rendering bug */
 }
 
+ .js.localstorage.webworkers.classlist.json #unsupported {
+    display: none;
+ }
+
 .ace_editor {
     position: relative !important;
     width: 100%;
