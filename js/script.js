@@ -94,6 +94,12 @@
     } catch (e) {}
 
 
+    worker.postMessage({
+        cmd: 'init',
+        id: activeEngine
+    });
+
+
     // Initialise the engine select
     for (i in engines) {
         if (engines.hasOwnProperty(i)) {
@@ -129,7 +135,7 @@
         }
 
         worker.postMessage({
-            id: activeEngine,
+            cmd: 'render',
             template: template,
             view: json
         });
@@ -142,10 +148,22 @@
 
     engineElement.addEventListener('change', function () {
         activeEngine = engineElement.value;
+
+        worker.terminate();
+        worker = new Worker('js/worker.js');
+        worker.postMessage({
+            cmd: 'init',
+            id: activeEngine
+        });
     }, false);
 
-    worker.addEventListener('message', function(e) {
-        resultEditor.getSession().setValue(e.data);
+    worker.addEventListener('message', function (e) {
+        if (e.data.error) {
+            templateElement.classList.add('error');
+        } else {
+            templateElement.classList.remove('error');
+            resultEditor.getSession().setValue(e.data.result);
+        }
     }, false);
 
 
