@@ -4,7 +4,7 @@ body {
     overflow-y: scroll; /* Workaround for Ace rendering bug */
 }
 
- .js.localstorage.webworkers.classlist.json #unsupported {
+ .js.localstorage.classlist.json #unsupported {
     display: none;
  }
 
