@@ -5,14 +5,21 @@
     'use strict';
 
     var SAVE_INTERVAL = 5000,
+        activeEngine = 'mustache',
+        worker = new Worker('js/worker.js'),
         JSONMode = require("ace/mode/json").Mode,
         HTMLMode = require("ace/mode/html").Mode,
         templateEditor = ace.edit('template'),
         viewEditor = ace.edit('view'),
-        viewElement = document.getElementById('view'),
         resultEditor = ace.edit('result'),
+        templateElement = document.getElementById('template'),
+        viewElement = document.getElementById('view'),
+        engineElement = document.getElementById('engine'),
+        engineTemplate = document.getElementById('engine-template').innerHTML,
         defaultTemplate = document.getElementById('default-template').innerHTML,
         defaultView = document.getElementById('default-view').innerHTML,
+        i,
+        selectHtml = '',
         engines = {
             dot: {
                 name: 'doT.js',
@@ -60,7 +67,10 @@
                 name: 'Mustache.js',
                 version: '0.4.2',
                 size: '4.5',
-                url: 'https://github.com/janl/mustache.js'
+                url: 'https://github.com/janl/mustache.js',
+                render: function (template, view, callback) {
+                    callback(null, Mustache.to_html(template, view));
+                }
             },
             pure: {
                 name: 'PURE',
@@ -84,6 +94,19 @@
     } catch (e) {}
 
 
+    // Initialise the engine select
+    for (i in engines) {
+        if (engines.hasOwnProperty(i)) {
+            selectHtml += Mustache.to_html(engineTemplate, {
+                id: i,
+                name: engines[i].name,
+                selected: i === activeEngine
+            });
+        }
+    }
+    engineElement.innerHTML = selectHtml;
+
+
     // Initialise the editors
     templateEditor.getSession().setMode(new HTMLMode());
     templateEditor.getSession().setValue(defaultTemplate);
@@ -91,6 +114,7 @@
     viewEditor.getSession().setValue(defaultView);
     resultEditor.getSession().setMode(new HTMLMode());
     resultEditor.setReadOnly(true);
+
 
     function render() {
         var json = {},
@@ -104,13 +128,29 @@
             viewElement.classList.add('error');
         }
 
-        resultEditor.getSession().setValue(Mustache.to_html(template, json));
+        engines[activeEngine].render(template, json, function (error, result) {
+            if (error) {
+                templateElement.classList.add('error');
+            } else {
+                templateElement.classList.remove('error');
+                resultEditor.getSession().setValue(result);
+            }
+        });
     }
 
+
+    // Event handlers
     templateEditor.getSession().on('change', render);
     viewEditor.getSession().on('change', render);
 
+    engineElement.addEventListener('change', function () {
+        activeEngine = engineElement.value;
+    }, false);
+
+
+    // Initial render
     render();
+
 
     // Save application state
     setInterval(function () {
