@@ -226,7 +226,11 @@
 
     renderingWorker.on('message', function (data) {
         if (data.error) {
+            if (console) {
+                console.error(data.error);
+            }
             templateElement.classList.add('error');
+            resultEditor.getSession().setValue('');
         } else {
             templateElement.classList.remove('error');
             resultEditor.getSession().setValue(data.result);

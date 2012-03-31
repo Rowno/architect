@@ -6,26 +6,39 @@
     var activeEngine,
         engines = {
             dot: function (template, view, callback) {
+                var compiledTemplate = doT.template(template);
+                callback(null, compiledTemplate(view));
             },
             ejs: function (template, view, callback) {
                 callback(null, require('ejs').render(template, view));
             },
             haml: function (template, view, callback) {
+                var compiledTemplate = Haml(template);
+                callback(null, compiledTemplate(view));
             },
             handlebars: function (template, view, callback) {
+                var compiledTemplate = Handlebars.compile(template);
+                callback(null, compiledTemplate(view));
             },
             hogan: function (template, view, callback) {
+                var compiledTemplate = Hogan.compile(template);
+                callback(null, compiledTemplate.render(view));
             },
             jade: function (template, view, callback) {
+                var compiledTemplate = jade.compile(template);
+                callback(null, compiledTemplate(view));
             },
             'john-resig-micro': function (template, view, callback) {
+                callback(null, '');
             },
             mustache: function (template, view, callback) {
                 callback(null, Mustache.to_html(template, view));
             },
             pure: function (template, view, callback) {
+                callback(null, '');
             },
             underscore: function (template, view, callback) {
+                callback(null, _.template(template, view));
             }
         };
 
@@ -38,12 +51,22 @@
             break;
 
         case 'render':
-            engines[activeEngine](e.data.template, e.data.view, function (error, result) {
-                self.postMessage({
-                    error: error,
-                    result: result
+            try {
+                engines[activeEngine](e.data.template, e.data.view, function (error, result) {
+                    self.postMessage({
+                        error: error,
+                        result: result
+                    });
                 });
-            });
+            } catch (e) {
+                self.postMessage({
+                    error: {
+                        name: e.name,
+                        message: e.message
+                    },
+                    result: null
+                });
+            }
             break;
         }
     }, false);
