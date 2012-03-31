@@ -17,8 +17,8 @@
 
     // Restore application state
     try {
-        defaultTemplate = localStorage.getItem('template-tester.template') || defaultTemplate;
-        defaultView = localStorage.getItem('template-tester.view') || defaultView;
+        defaultTemplate = localStorage.getItem('architect.template') || defaultTemplate;
+        defaultView = localStorage.getItem('architect.view') || defaultView;
     } catch (e) {}
 
 
@@ -56,8 +56,8 @@
             template = templateEditor.getSession().getValue();
 
         try {
-            localStorage.setItem('template-tester.template', template);
-            localStorage.setItem('template-tester.view', view);
+            localStorage.setItem('architect.template', template);
+            localStorage.setItem('architect.view', view);
         } catch (e) {}
     }, SAVE_INTERVAL);
 }(Mustache, ace, require));

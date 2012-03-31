@@ -1,11 +1,11 @@
-Template Tester
-===============
+Architect
+=========
 
-Web app for testing out various JavaScript templating engines.
+Web app for creating JavaScript templates in various engines.
 
 
 License
 -------
-Template Tester is licensed under the [Creative Commons Attribution-ShareAlike 3.0 Unported License](http://creativecommons.org/licenses/by-sa/3.0/).
+Architect is licensed under the [Creative Commons Attribution-ShareAlike 3.0 Unported License](http://creativecommons.org/licenses/by-sa/3.0/).
 
 Copyright 2012, Roland Warmerdam.

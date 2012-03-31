@@ -10,5 +10,5 @@
 /* SITE */
     Standards: HTML5, CSS3, JSON, Application Cache, LocalStorage
     Components: HTML5 Boilerplate, Bootstrap, Modernizr, Ace Editor, Mustache.js
-    Source: https://github.com/Rowno/template-tester
+    Source: https://github.com/Rowno/architect
     Software: Sublime Text 2
