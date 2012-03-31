@@ -128,13 +128,10 @@
             viewElement.classList.add('error');
         }
 
-        engines[activeEngine].render(template, json, function (error, result) {
-            if (error) {
-                templateElement.classList.add('error');
-            } else {
-                templateElement.classList.remove('error');
-                resultEditor.getSession().setValue(result);
-            }
+        worker.postMessage({
+            id: activeEngine,
+            template: template,
+            view: json
         });
     }
 
@@ -145,6 +142,10 @@
 
     engineElement.addEventListener('change', function () {
         activeEngine = engineElement.value;
+    }, false);
+
+    worker.addEventListener('message', function(e) {
+        resultEditor.getSession().setValue(e.data);
     }, false);
 
 

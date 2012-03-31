@@ -1,6 +1,8 @@
 (function () {
     'use strict';
 
+    importScripts('engines/mustache.min.js');
+
     var engines = {
         dot: function (template, view, callback) {
         },
@@ -24,4 +26,10 @@
         underscore: function (template, view, callback) {
         }
     };
+
+    self.addEventListener('message', function(e) {
+        engines.mustache(e.data.template, e.data.view, function (error, result) {
+            self.postMessage(result);
+        });
+    }, false);
 }());

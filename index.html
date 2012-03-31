@@ -65,9 +65,8 @@
     </script>
 
 <script id="default-template" type="text/mustache"><h1>{{header}}</h1>
-{{#bug}}
-{{/bug}}
 
+<ul>
 {{#items}}
     {{#first}}
         <li><strong>{{name}}</strong></li>
@@ -76,6 +75,7 @@
         <li><a href="{{url}}">{{name}}</a></li>
     {{/link}}
 {{/items}}
+</ul>
 
 {{#empty}}
     <p>The list is empty.</p>
