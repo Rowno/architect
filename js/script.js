@@ -42,7 +42,7 @@
             viewElement.classList.add('error');
         }
 
-        result.getSession().setValue(Mustache.to_html(template, json));
+        resultEditor.getSession().setValue(Mustache.to_html(template, json));
     }
 
     templateEditor.getSession().on('change', render);
