@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# 5fb9fe5bd6fd9ad199d24ef276ef7803f370f25c
+# 71d8a870427fbfb9a548776c807a2f3bc76ae8e9
 
 
 CACHE:
@@ -9,6 +9,7 @@ css/style.css
 
 img/glyphicons-halflings-white.png
 img/glyphicons-halflings.png
+favicon.ico
 
 js/ace/ace.js
 js/ace/mode-json.js
