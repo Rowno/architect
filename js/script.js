@@ -151,14 +151,16 @@
     }
 
 
-    renderingWorker = new RenderingWorker(activeEngine);
-
-
     // Restore application state
     try {
+        activeEngine = localStorage.getItem('architect.engine') || activeEngine;
         defaultTemplate = localStorage.getItem('architect.template') || defaultTemplate;
         defaultView = localStorage.getItem('architect.view') || defaultView;
     } catch (error) {}
+
+
+    // Initialise the web worker
+    renderingWorker = new RenderingWorker(activeEngine);
 
 
     // Initialise the engine select
@@ -233,6 +235,7 @@
             template = templateEditor.getSession().getValue();
 
         try {
+            localStorage.setItem('architect.engine', activeEngine);
             localStorage.setItem('architect.template', template);
             localStorage.setItem('architect.view', view);
         } catch (error) {}
