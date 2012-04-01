@@ -1,14 +1,14 @@
 /*jslint browser: true */
 /*globals Mustache: false, ace: false, require: false */
 
-(function (Mustache, ace, require) {
+(function (mustache, ace, require, document, localStorage, Worker, console, setInterval) {
     'use strict';
 
     var SAVE_INTERVAL = 5000,
         activeEngine = 'mustache',
         renderingWorker,
-        JSONMode = require("ace/mode/json").Mode,
-        HTMLMode = require("ace/mode/html").Mode,
+        JSONMode = require('ace/mode/json').Mode,
+        HTMLMode = require('ace/mode/html').Mode,
         templateEditor = ace.edit('template'),
         viewEditor = ace.edit('view'),
         resultEditor = ace.edit('result'),
@@ -61,10 +61,7 @@
                 name: 'Mustache.js',
                 version: '0.4.2',
                 size: '4.5',
-                url: 'https://github.com/janl/mustache.js',
-                render: function (template, view, callback) {
-                    callback(null, Mustache.to_html(template, view));
-                }
+                url: 'https://github.com/janl/mustache.js'
             },
             underscore: {
                 name: 'Underscore.js',
@@ -167,7 +164,7 @@
     // Initialise the engine select
     for (i in engines) {
         if (engines.hasOwnProperty(i)) {
-            selectHtml += Mustache.to_html(engineTemplate, {
+            selectHtml += mustache.to_html(engineTemplate, {
                 id: i,
                 name: engines[i].name,
                 selected: i === activeEngine
@@ -240,4 +237,4 @@
             localStorage.setItem('architect.view', view);
         } catch (error) {}
     }, SAVE_INTERVAL);
-}(Mustache, ace, require));
+}(Mustache, ace, require, document, localStorage, Worker, console, setInterval));

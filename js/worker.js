@@ -1,6 +1,6 @@
 /*globals self: false, importScripts: false */
 
-(function () {
+(function (self) {
     'use strict';
 
     var activeEngine,
@@ -64,4 +64,4 @@
             break;
         }
     }, false);
-}());
+}(self));
