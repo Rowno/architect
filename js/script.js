@@ -17,12 +17,11 @@
         JSONMode = require('ace/mode/json').Mode,
         HTMLMode = require('ace/mode/html').Mode,
         templateEditor = ace.edit('template'),
+        templateEditorContent = '',
         viewEditor = ace.edit('view'),
+        viewEditorDefault = document.getElementById('view-default').innerHTML,
+        viewEditorContent = '',
         resultEditor = ace.edit('result'),
-
-        // Default editor content
-        defaultTemplate = document.getElementById('default-template').innerHTML,
-        defaultView = document.getElementById('default-view').innerHTML,
 
         // Cached DOM elements
         templateElement = document.getElementById('template'),
@@ -239,11 +238,20 @@
     }
 
 
-    // Restore application state
+    // Load the default engine templates
+    for (i in engines) {
+        if (engines.hasOwnProperty(i)) {
+            engines[i].template = document.getElementById('template-default-' + i).innerHTML;
+        }
+    }
+
+
+    // Load application state
     try {
         activeEngine = localStorage.getItem('architect.engine') || activeEngine;
-        defaultTemplate = localStorage.getItem('architect.template') || defaultTemplate;
-        defaultView = localStorage.getItem('architect.view') || defaultView;
+        templateEditorContent = localStorage.getItem('architect.template') ||
+            engines[activeEngine].template;
+        viewEditorContent = localStorage.getItem('architect.view') || viewEditorDefault;
     } catch (error) {}
 
 
@@ -268,9 +276,9 @@
 
     // Initialise the editors
     templateEditor.getSession().setMode(new HTMLMode());
-    templateEditor.getSession().setValue(defaultTemplate);
+    templateEditor.getSession().setValue(templateEditorContent);
     viewEditor.getSession().setMode(new JSONMode());
-    viewEditor.getSession().setValue(defaultView);
+    viewEditor.getSession().setValue(viewEditorContent);
     resultEditor.getSession().setMode(new HTMLMode());
     resultEditor.setReadOnly(true);
 
@@ -283,6 +291,8 @@
     engineElement.addEventListener('change', function () {
         activeEngine = engineElement.value;
         engineInfoElement.innerHTML = mustache.to_html(engineInfoTemplate, engines[activeEngine]);
+        viewEditor.getSession().setValue(viewEditorDefault);
+        templateEditor.getSession().setValue(engines[activeEngine].template);
 
         renderingWorker.changeEngine(activeEngine);
         render();

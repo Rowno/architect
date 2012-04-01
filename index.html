@@ -67,6 +67,7 @@
     <a href="https://github.com/Rowno/architect" id="ribbon"><img src="http://a248.e.akamai.net/assets.github.com/img/71eeaab9d563c2b3c590319b398dd35683265e85/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" width="149" height="149"></a>
 
 
+
     <script id="engine-template" type="text/x-mustache">
         <option value="{{id}}" {{#selected}}selected{{/selected}}>{{name}}</option>
     </script>
@@ -74,38 +75,94 @@
     <script id="engine-info-template" type="text/x-mustache">
         &raquo; <span class="label label-info">version</span> {{version}}
         &raquo; <span class="label label-info">size</span> <span title="minified and gzipped">{{size}}KB</span>
-        &raquo; <a href="{{source}}">github</a>
+        &raquo; <a href="{{source}}" target="_blank">github</a>
         &raquo; <a href="js/engines/{{id}}.min.js" download>download</a>
     </script>
 
 
 
-<script id="default-template" type="text/x-mustache"><h1>{{header}}</h1>
 
-<ul>
+<script id="template-default-dot" type="text/x-dot"><h1>{{=it.header}}</h1>
+
+<select>
+{{ for (var i=0; i < it.items.length; i++) { }}
+    <option value="{{=it.items[i].id}}"{{ if (it.items[i].active) { }} selected{{ } }}>{{=it.items[i].name}}</option>
+{{ } }}
+</select></script>
+
+
+<script id="template-default-ejs" type="text/x-ejs"><h1><%=header%></h1>
+
+<select>
+<% for (var i=0; i < items.length; i++) { %>
+    <option value="<%=items[i].id%>"<% if (items[i].active) { %> selected<% } %>><%=items[i].name%></option>
+<% } %>
+</select></script>
+
+
+<script id="template-default-haml" type="text/x-haml">%h1= header
+
+%select
+    :each item in items
+        :if item.active
+            %option{value: item.id, selected:'selected'}= item.name
+        :if !item.active
+            %option{value: item.id}= item.name</script>
+
+
+<script id="template-default-handlebars" type="text/x-handlebars"><h1>{{header}}</h1>
+
+<select>
 {{#items}}
-    {{#first}}
-        <li><strong>{{name}}</strong></li>
-    {{/first}}
-    {{#link}}
-        <li><a href="{{url}}">{{name}}</a></li>
-    {{/link}}
+    <option value="{{id}}"{{#active}} selected{{/active}}>{{name}}</option>
 {{/items}}
-</ul>
-
-{{#empty}}
-    <p>The list is empty.</p>
-{{/empty}}</script>
+</select></script>
 
 
-<script id="default-view" type="application/json">{
+<script id="template-default-hogan" type="text/x-hogan"><h1>{{header}}</h1>
+
+<select>
+{{#items}}
+    <option value="{{id}}"{{#active}} selected{{/active}}>{{name}}</option>
+{{/items}}
+</select></script>
+
+
+<script id="template-default-jade" type="text/x-jade">h1 #{header}
+
+select
+    each item in items
+        if item.active
+            option(value=item.id, selected) #{item.name}
+        else
+            option(value=item.id) #{item.name}</script>
+
+
+<script id="template-default-mustache" type="text/x-mustache"><h1>{{header}}</h1>
+
+<select>
+{{#items}}
+    <option value="{{id}}"{{#active}} selected{{/active}}>{{name}}</option>
+{{/items}}
+</select></script>
+
+
+<script id="template-default-underscore" type="text/x-underscore"><h1><%=header%></h1>
+
+<select>
+<% for (var i=0; i < items.length; i++) { %>
+    <option value="<%=items[i].id%>"<% if (items[i].active) { %> selected<% } %>><%=items[i].name%></option>
+<% } %>
+</select></script>
+
+
+<script id="view-default" type="application/json">{
     "header": "Colors",
     "items": [
-        {"name": "red", "first": true, "url": "#Red"},
-        {"name": "green", "link": true, "url": "#Green"},
-        {"name": "blue", "link": true, "url": "#Blue"}
-    ],
-    "empty": false
+        {"id": 1, "name": "Red", "active": true},
+        {"id": 2, "name": "Green"},
+        {"id": 3, "name": "Blue"}
+    ]
 }</script>
 
 
