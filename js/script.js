@@ -28,57 +28,67 @@
         templateElement = document.getElementById('template'),
         viewElement = document.getElementById('view'),
         engineElement = document.getElementById('engine'),
+        engineInfoElement = document.getElementById('engine-info'),
 
         // Mustache templates
         engineTemplate = document.getElementById('engine-template').innerHTML,
+        engineInfoTemplate = document.getElementById('engine-info-template').innerHTML,
 
         engines = {
             dot: {
+                id: 'dot',
                 name: 'doT.js',
                 version: '0.1.7',
-                size: '2.2',
+                size: '1.2',
                 url: 'https://github.com/olado/doT'
             },
             ejs: {
+                id: 'ejs',
                 name: 'EJS',
                 version: '0.6.1',
-                size: '6.1',
+                size: '2.5',
                 url: 'https://github.com/visionmedia/ejs'
             },
             haml: {
+                id: 'haml',
                 name: 'Haml.js',
                 version: '0.4.2',
-                size: '8.6',
+                size: '3.5',
                 url: 'https://github.com/creationix/haml-js'
             },
             handlebars: {
+                id: 'handlebars',
                 name: 'Handlebars.js',
                 version: '1.0.6beta',
-                size: '30.3',
+                size: '9.6',
                 url: 'https://github.com/wycats/handlebars.js'
             },
             hogan: {
+                id: 'hogan',
                 name: 'Hogan.js',
                 version: '2.0.0',
-                size: '5.9',
+                size: '2.8',
                 url: 'https://github.com/twitter/hogan.js'
             },
             jade: {
+                id: 'jade',
                 name: 'Jade',
                 version: '0.21.0',
-                size: '34.6',
+                size: '9.3',
                 url: 'https://github.com/visionmedia/jade'
             },
             mustache: {
+                id: 'mustache',
                 name: 'Mustache.js',
                 version: '0.4.2',
-                size: '4.5',
+                size: '2.2',
                 url: 'https://github.com/janl/mustache.js'
             },
             underscore: {
+                id: 'underscore',
                 name: 'Underscore.js',
                 version: '1.3.1',
-                size: '12.1',
+                size: '4.4',
                 url: 'https://github.com/documentcloud/underscore'
             }
         };
@@ -240,6 +250,7 @@
     // Initialise the web worker
     renderingWorker = new RenderWorker(activeEngine);
 
+
     // Initialise the engine select
     for (i in engines) {
         if (engines.hasOwnProperty(i)) {
@@ -251,6 +262,9 @@
         }
     }
     engineElement.innerHTML = selectHtml;
+
+    engineInfoElement.innerHTML = mustache.to_html(engineInfoTemplate, engines[activeEngine]);
+
 
     // Initialise the editors
     templateEditor.getSession().setMode(new HTMLMode());
@@ -268,6 +282,8 @@
 
     engineElement.addEventListener('change', function () {
         activeEngine = engineElement.value;
+        engineInfoElement.innerHTML = mustache.to_html(engineInfoTemplate, engines[activeEngine]);
+
         renderingWorker.changeEngine(activeEngine);
         render();
     }, false);
