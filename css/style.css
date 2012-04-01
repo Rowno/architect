@@ -29,12 +29,25 @@ span[title] {
     right: 0;
 }
 
+#ribbon-link {
+    display: none;
+}
+
 footer {
     margin: 20px 0px;
 }
 
+    footer a {
+        margin-right: 20px;
+    }
+
+
 @media (max-width: 666px) {
     #ribbon {
         display: none;
+    }
+
+    #ribbon-link {
+        display: inline;
     }
 }

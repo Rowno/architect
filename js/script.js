@@ -40,56 +40,56 @@
                 name: 'doT.js',
                 version: '0.1.7',
                 size: '1.2',
-                url: 'https://github.com/olado/doT'
+                source: 'https://github.com/olado/doT'
             },
             ejs: {
                 id: 'ejs',
                 name: 'EJS',
                 version: '0.6.1',
                 size: '2.5',
-                url: 'https://github.com/visionmedia/ejs'
+                source: 'https://github.com/visionmedia/ejs'
             },
             haml: {
                 id: 'haml',
                 name: 'Haml.js',
                 version: '0.4.2',
                 size: '3.5',
-                url: 'https://github.com/creationix/haml-js'
+                source: 'https://github.com/creationix/haml-js'
             },
             handlebars: {
                 id: 'handlebars',
                 name: 'Handlebars.js',
                 version: '1.0.6beta',
                 size: '9.6',
-                url: 'https://github.com/wycats/handlebars.js'
+                source: 'https://github.com/wycats/handlebars.js'
             },
             hogan: {
                 id: 'hogan',
                 name: 'Hogan.js',
                 version: '2.0.0',
                 size: '2.8',
-                url: 'https://github.com/twitter/hogan.js'
+                source: 'https://github.com/twitter/hogan.js'
             },
             jade: {
                 id: 'jade',
                 name: 'Jade',
                 version: '0.21.0',
                 size: '9.3',
-                url: 'https://github.com/visionmedia/jade'
+                source: 'https://github.com/visionmedia/jade'
             },
             mustache: {
                 id: 'mustache',
                 name: 'Mustache.js',
                 version: '0.4.2',
                 size: '2.2',
-                url: 'https://github.com/janl/mustache.js'
+                source: 'https://github.com/janl/mustache.js'
             },
             underscore: {
                 id: 'underscore',
                 name: 'Underscore.js',
                 version: '1.3.1',
                 size: '4.4',
-                url: 'https://github.com/documentcloud/underscore'
+                source: 'https://github.com/documentcloud/underscore'
             }
         };
 
