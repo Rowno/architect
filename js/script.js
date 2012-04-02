@@ -8,10 +8,11 @@
     var SAVE_INTERVAL = 5000,
 
         // Misc
-        activeEngine = 'mustache',
+        Engines,
         renderingWorker,
         i,
         selectHtml = '',
+        temp,
 
         // Editors
         JSONMode = require('ace/mode/json').Mode,
@@ -31,66 +32,121 @@
 
         // Mustache templates
         engineTemplate = document.getElementById('engine-template').innerHTML,
-        engineInfoTemplate = document.getElementById('engine-info-template').innerHTML,
+        engineInfoTemplate = document.getElementById('engine-info-template').innerHTML;
 
-        engines = {
-            dot: {
-                id: 'dot',
-                name: 'doT.js',
-                version: '0.1.7',
-                size: '1.2',
-                source: 'https://github.com/olado/doT'
-            },
-            ejs: {
-                id: 'ejs',
-                name: 'EJS',
-                version: '0.6.1',
-                size: '2.5',
-                source: 'https://github.com/visionmedia/ejs'
-            },
-            haml: {
-                id: 'haml',
-                name: 'Haml.js',
-                version: '0.4.2',
-                size: '3.5',
-                source: 'https://github.com/creationix/haml-js'
-            },
-            handlebars: {
-                id: 'handlebars',
-                name: 'Handlebars.js',
-                version: '1.0.6beta',
-                size: '9.6',
-                source: 'https://github.com/wycats/handlebars.js'
-            },
-            hogan: {
-                id: 'hogan',
-                name: 'Hogan.js',
-                version: '2.0.0',
-                size: '2.8',
-                source: 'https://github.com/twitter/hogan.js'
-            },
-            jade: {
-                id: 'jade',
-                name: 'Jade',
-                version: '0.21.0',
-                size: '9.3',
-                source: 'https://github.com/visionmedia/jade'
-            },
-            mustache: {
-                id: 'mustache',
-                name: 'Mustache.js',
-                version: '0.4.2',
-                size: '2.2',
-                source: 'https://github.com/janl/mustache.js'
-            },
-            underscore: {
-                id: 'underscore',
-                name: 'Underscore.js',
-                version: '1.3.1',
-                size: '4.4',
-                source: 'https://github.com/documentcloud/underscore'
-            }
-        };
+
+    /**
+     * Singleton that encapsulates the defined templating engines.
+     */
+    Engines = (function () {
+        var engines = [
+                {
+                    id: 'dot',
+                    name: 'doT.js',
+                    version: '0.1.7',
+                    size: '1.2',
+                    source: 'https://github.com/olado/doT'
+                },
+                {
+                    id: 'ejs',
+                    name: 'EJS',
+                    version: '0.6.1',
+                    size: '2.5',
+                    source: 'https://github.com/visionmedia/ejs'
+                },
+                {
+                    id: 'haml',
+                    name: 'Haml.js',
+                    version: '0.4.2',
+                    size: '3.5',
+                    source: 'https://github.com/creationix/haml-js'
+                },
+                {
+                    id: 'handlebars',
+                    name: 'Handlebars.js',
+                    version: '1.0.6beta',
+                    size: '9.6',
+                    source: 'https://github.com/wycats/handlebars.js'
+                },
+                {
+                    id: 'hogan',
+                    name: 'Hogan.js',
+                    version: '2.0.0',
+                    size: '2.8',
+                    source: 'https://github.com/twitter/hogan.js'
+                },
+                {
+                    id: 'jade',
+                    name: 'Jade',
+                    version: '0.21.0',
+                    size: '9.3',
+                    source: 'https://github.com/visionmedia/jade'
+                },
+                {
+                    id: 'mustache',
+                    name: 'Mustache.js',
+                    version: '0.4.2',
+                    size: '2.2',
+                    source: 'https://github.com/janl/mustache.js'
+                },
+                {
+                    id: 'underscore',
+                    name: 'Underscore.js',
+                    version: '1.3.1',
+                    size: '4.4',
+                    source: 'https://github.com/documentcloud/underscore'
+                }
+            ],
+            activeEngine = engines[0],
+            exports = {};
+
+
+        // Initialise engines' default template
+        engines.forEach(function (engine) {
+            engine.template = document.getElementById('template-default-' +
+                engine.id).innerHTML;
+        });
+
+
+        /**
+         * Gets the active engine.
+         *
+         * @returns {object} Map of the engine's info.
+         */
+        function getActiveEngine() {
+            return activeEngine;
+        }
+        exports.getActiveEngine = getActiveEngine;
+
+
+        /**
+         * Sets the active engine.
+         *
+         * @param {string} engineId ID of the engine.
+         */
+        function setActiveEngine(engineId) {
+            engines.forEach(function (engine) {
+                if (engine.id === engineId) {
+                    activeEngine = engine;
+                }
+            });
+        }
+        exports.setActiveEngine = setActiveEngine;
+
+
+        /**
+         * Get all of the defined engines.
+         *
+         * @returns {array.<object>} Array of maps of the engine info.
+         */
+        function getEngines() {
+            return engines;
+        }
+        exports.getEngines = getEngines;
+
+
+        return exports;
+    }());
 
 
     /**
@@ -238,44 +294,39 @@
     }
 
 
-    // Load the default engine templates
-    for (i in engines) {
-        if (engines.hasOwnProperty(i)) {
-            engines[i].template = document.getElementById('template-default-' +
-                i).innerHTML;
-        }
-    }
-
-
     // Load application state
     try {
-        activeEngine = localStorage.getItem('architect.engine') || activeEngine;
+        temp = localStorage.getItem('architect.engine');
+        if (temp) {
+            Engines.setActiveEngine(temp);
+        }
+
         templateEditorContent = localStorage.getItem('architect.template') ||
-            engines[activeEngine].template;
+            Engines.getActiveEngine().template;
+
         viewEditorContent = localStorage.getItem('architect.view') ||
             viewEditorDefault;
     } catch (error) {}
 
 
     // Initialise the web worker
-    renderingWorker = new RenderWorker(activeEngine);
+    renderingWorker = new RenderWorker(Engines.getActiveEngine().id);
 
 
     // Initialise the engine select
-    for (i in engines) {
-        if (engines.hasOwnProperty(i)) {
-            selectHtml += mustache.to_html(engineTemplate, {
-                id: i,
-                name: engines[i].name,
-                selected: i === activeEngine
-            });
-        }
-    }
-    engineElement.innerHTML = selectHtml;
+    temp = '';
+    Engines.getEngines().forEach(function (engine) {
+        temp += mustache.to_html(engineTemplate, {
+            id: engine.id,
+            name: engine.name,
+            selected: engine.id === Engines.getActiveEngine().id
+        });
+    });
+    engineElement.innerHTML = temp;
 
     engineInfoElement.innerHTML = mustache.to_html(
         engineInfoTemplate,
-        engines[activeEngine]
+        Engines.getActiveEngine()
     );
 
 
@@ -294,15 +345,17 @@
     viewEditor.getSession().on('change', render);
 
     engineElement.addEventListener('change', function () {
-        activeEngine = engineElement.value;
+        Engines.setActiveEngine(engineElement.value);
+
         engineInfoElement.innerHTML = mustache.to_html(
             engineInfoTemplate,
-            engines[activeEngine]
+            Engines.getActiveEngine()
         );
-        viewEditor.getSession().setValue(viewEditorDefault);
-        templateEditor.getSession().setValue(engines[activeEngine].template);
 
-        renderingWorker.changeEngine(activeEngine);
+        viewEditor.getSession().setValue(viewEditorDefault);
+        templateEditor.getSession().setValue(Engines.getActiveEngine().template);
+
+        renderingWorker.changeEngine(Engines.getActiveEngine().id);
         render();
     }, false);
 
@@ -330,7 +383,7 @@
             template = templateEditor.getSession().getValue();
 
         try {
-            localStorage.setItem('architect.engine', activeEngine);
+            localStorage.setItem('architect.engine', Engines.getActiveEngine().id);
             localStorage.setItem('architect.template', template);
             localStorage.setItem('architect.view', view);
         } catch (error) {}
