@@ -206,7 +206,7 @@
                 init: function () {
                     worker.postMessage({
                         cmd: 'init',
-                        id: engine
+                        id: engine.id
                     });
                 },
                 render: function (template, view) {
@@ -310,7 +310,7 @@
 
 
     // Initialise the web worker
-    renderingWorker = new RenderWorker(Engines.getActiveEngine().id);
+    renderingWorker = new RenderWorker(Engines.getActiveEngine());
 
 
     // Initialise the engine select
@@ -355,7 +355,7 @@
         viewEditor.getSession().setValue(viewEditorDefault);
         templateEditor.getSession().setValue(Engines.getActiveEngine().template);
 
-        renderingWorker.changeEngine(Engines.getActiveEngine().id);
+        renderingWorker.changeEngine(Engines.getActiveEngine());
         render();
     }, false);
 
