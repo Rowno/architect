@@ -29,6 +29,7 @@
         viewElement = document.getElementById('view'),
         engineElement = document.getElementById('engine'),
         engineInfoElement = document.getElementById('engine-info'),
+        resetElement = document.getElementById('reset'),
 
         // Mustache templates
         engineTemplate = document.getElementById('engine-template').innerHTML,
@@ -344,7 +345,10 @@
     templateEditor.getSession().on('change', render);
     viewEditor.getSession().on('change', render);
 
+
     engineElement.addEventListener('change', function () {
+        var previousEngine = Engines.getActiveEngine();
+
         Engines.setActiveEngine(engineElement.value);
 
         engineInfoElement.innerHTML = mustache.to_html(
@@ -352,12 +356,21 @@
             Engines.getActiveEngine()
         );
 
-        viewEditor.getSession().setValue(viewEditorDefault);
-        templateEditor.getSession().setValue(Engines.getActiveEngine().template);
+        // Only reset the template editor if the content has been changed
+        if (previousEngine.template === templateEditor.getSession().getValue()) {
+            templateEditor.getSession().setValue(Engines.getActiveEngine().template);
+        }
 
         renderingWorker.changeEngine(Engines.getActiveEngine());
         render();
     }, false);
+
+
+    resetElement.addEventListener('click', function () {
+        templateEditor.getSession().setValue(Engines.getActiveEngine().template);
+        viewEditor.getSession().setValue(viewEditorDefault);
+    }, false);
+
 
     renderingWorker.on('complete', function (data) {
         if (data.error) {

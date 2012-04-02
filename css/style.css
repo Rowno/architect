@@ -1,16 +1,24 @@
-* { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+* {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
 
 body {
     overflow-y: scroll; /* Workaround for Ace rendering bug */
 }
 
- .js.classlist.json.localstorage.webworkers #unsupported {
-    display: none;
- }
-
 span[title] {
     border-bottom: 1px dotted #ddd;
     cursor: help;
+}
+
+.js.classlist.json.localstorage.webworkers #unsupported {
+    display: none;
+}
+
+#engine {
+    margin-bottom: 0; /* Fixes text line being offset */
 }
 
 .ace_editor {
@@ -19,7 +27,7 @@ span[title] {
     height: 250px;
 }
 
-.error {
+.ace_editor.error {
     outline: 3px solid red;
 }
 
