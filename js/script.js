@@ -241,7 +241,8 @@
     // Load the default engine templates
     for (i in engines) {
         if (engines.hasOwnProperty(i)) {
-            engines[i].template = document.getElementById('template-default-' + i).innerHTML;
+            engines[i].template = document.getElementById('template-default-' +
+                i).innerHTML;
         }
     }
 
@@ -251,7 +252,8 @@
         activeEngine = localStorage.getItem('architect.engine') || activeEngine;
         templateEditorContent = localStorage.getItem('architect.template') ||
             engines[activeEngine].template;
-        viewEditorContent = localStorage.getItem('architect.view') || viewEditorDefault;
+        viewEditorContent = localStorage.getItem('architect.view') ||
+            viewEditorDefault;
     } catch (error) {}
 
 
@@ -271,7 +273,10 @@
     }
     engineElement.innerHTML = selectHtml;
 
-    engineInfoElement.innerHTML = mustache.to_html(engineInfoTemplate, engines[activeEngine]);
+    engineInfoElement.innerHTML = mustache.to_html(
+        engineInfoTemplate,
+        engines[activeEngine]
+    );
 
 
     // Initialise the editors
@@ -290,7 +295,10 @@
 
     engineElement.addEventListener('change', function () {
         activeEngine = engineElement.value;
-        engineInfoElement.innerHTML = mustache.to_html(engineInfoTemplate, engines[activeEngine]);
+        engineInfoElement.innerHTML = mustache.to_html(
+            engineInfoTemplate,
+            engines[activeEngine]
+        );
         viewEditor.getSession().setValue(viewEditorDefault);
         templateEditor.getSession().setValue(engines[activeEngine].template);
 

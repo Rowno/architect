@@ -1,7 +1,7 @@
-Architect
-=========
+Architect - Javascript Template Editor
+======================================
 
-Web app for creating JavaScript templates in various engines.
+Web app for editing Javascript templates in various engines.
 
 
 License
