@@ -112,7 +112,7 @@
             %option{value: item.id}= item.name</script>
 
 
-<script id="template-default-handlebars" type="text/x-handlebars"><h1>{{header}}</h1>
+<script id="template-default-handlebars" type="text/x-mustache"><h1>{{header}}</h1>
 
 <select>
 {{#items}}
@@ -121,7 +121,7 @@
 </select></script>
 
 
-<script id="template-default-hogan" type="text/x-hogan"><h1>{{header}}</h1>
+<script id="template-default-hogan" type="text/x-mustache"><h1>{{header}}</h1>
 
 <select>
 {{#items}}
@@ -172,7 +172,7 @@ select
     <script src="js/ace/ace.js"></script>
     <script src="js/ace/mode-json.js"></script>
     <script src="js/ace/mode-html.js"></script>
-    <script src="js/engines/mustache.min.js"></script>
+    <script src="js/engines/hogan.min.js"></script>
     <script src="js/script.js"></script>
 
     <script>

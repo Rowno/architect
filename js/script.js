@@ -1,7 +1,7 @@
 /*jslint browser: true */
-/*globals Mustache: false, ace: false, require: false */
+/*globals Hogan: false, ace: false, require: false */
 
-(function (mustache, ace, require, document, localStorage, Worker, console, setInterval) {
+(function (Hogan, ace, require, document, localStorage, Worker, console, setInterval) {
     'use strict';
 
         // Constants
@@ -31,9 +31,13 @@
         engineInfoElement = document.getElementById('engine-info'),
         resetElement = document.getElementById('reset'),
 
-        // Mustache templates
-        engineTemplate = document.getElementById('engine-template').innerHTML,
-        engineInfoTemplate = document.getElementById('engine-info-template').innerHTML;
+        // Hogan templates
+        engineTemplate = Hogan.compile(
+            document.getElementById('engine-template').innerHTML
+        ),
+        engineInfoTemplate = Hogan.compile(
+            document.getElementById('engine-info-template').innerHTML
+        );
 
 
     /**
@@ -317,7 +321,7 @@
     // Initialise the engine select
     temp = '';
     Engines.getEngines().forEach(function (engine) {
-        temp += mustache.to_html(engineTemplate, {
+        temp += engineTemplate.render({
             id: engine.id,
             name: engine.name,
             selected: engine.id === Engines.getActiveEngine().id
@@ -325,8 +329,7 @@
     });
     engineElement.innerHTML = temp;
 
-    engineInfoElement.innerHTML = mustache.to_html(
-        engineInfoTemplate,
+    engineInfoElement.innerHTML = engineInfoTemplate.render(
         Engines.getActiveEngine()
     );
 
@@ -351,8 +354,7 @@
 
         Engines.setActiveEngine(engineElement.value);
 
-        engineInfoElement.innerHTML = mustache.to_html(
-            engineInfoTemplate,
+        engineInfoElement.innerHTML = engineInfoTemplate.render(
             Engines.getActiveEngine()
         );
 
@@ -401,4 +403,4 @@
             localStorage.setItem('architect.view', view);
         } catch (error) {}
     }, SAVE_INTERVAL);
-}(Mustache, ace, require, document, localStorage, Worker, console, setInterval));
+}(Hogan, ace, require, document, localStorage, Worker, console, setInterval));
