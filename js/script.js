@@ -1,7 +1,7 @@
 /*jslint browser: true */
 /*globals Hogan: false, ace: false, require: false */
 
-(function (Hogan, ace, require, document, localStorage, Worker, console, setInterval) {
+(function (Hogan, ace, require, document, localStorage, Worker, setInterval) {
     'use strict';
 
         // Constants
@@ -26,7 +26,9 @@
 
         // Cached DOM elements
         templateElement = document.getElementById('template'),
+        templateErrorElement = document.getElementById('template-error'),
         viewElement = document.getElementById('view'),
+        viewErrorElement = document.getElementById('view-error'),
         engineElement = document.getElementById('engine'),
         engineInfoElement = document.getElementById('engine-info'),
         resetElement = document.getElementById('reset'),
@@ -290,8 +292,10 @@
 
         try {
             json = JSON.parse(view);
+            viewErrorElement.textContent = '';
             viewElement.classList.remove('error');
         } catch (error) {
+            viewErrorElement.textContent = 'syntax error';
             viewElement.classList.add('error');
         }
 
@@ -376,12 +380,11 @@
 
     renderingWorker.on('complete', function (data) {
         if (data.error) {
-            if (console) {
-                console.error(data.error);
-            }
+            templateErrorElement.textContent = data.error.message;
             templateElement.classList.add('error');
             resultEditor.getSession().setValue('');
         } else {
+            templateErrorElement.textContent = '';
             templateElement.classList.remove('error');
             resultEditor.getSession().setValue(data.result);
         }
@@ -403,4 +406,4 @@
             localStorage.setItem('architect.view', view);
         } catch (error) {}
     }, SAVE_INTERVAL);
-}(Hogan, ace, require, document, localStorage, Worker, console, setInterval));
+}(Hogan, ace, require, document, localStorage, Worker, setInterval));

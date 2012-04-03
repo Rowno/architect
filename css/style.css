@@ -21,6 +21,13 @@ span[title] {
     margin-bottom: 0; /* Fixes text line being offset */
 }
 
+.editor-error {
+    float: right;
+    padding-top: 1em;
+    color: red;
+    font-weight: bold;
+}
+
 .ace_editor {
     position: relative !important;
     width: 100%;
@@ -50,7 +57,7 @@ footer {
     }
 
 
-@media (max-width: 666px) {
+@media (max-width: 768px) {
     #ribbon {
         display: none;
     }
