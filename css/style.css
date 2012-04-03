@@ -13,8 +13,16 @@ span[title] {
     cursor: help;
 }
 
-.js.classlist.json.localstorage.webworkers #unsupported {
+.js.classlist.json.localstorage.webworkers .unsupported {
     display: none;
+}
+
+.offline {
+    display: none;
+}
+
+.applicationcache.localstorage .offline {
+    display: inline;
 }
 
 #engine {

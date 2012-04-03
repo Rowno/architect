@@ -28,13 +28,13 @@
 </head>
 <body class="container-fluid">
     <header class="page-header">
-        <h1>Architect <small>Edit Javascript templates in various engines</small></h1>
+        <h1>Architect <small>Edit Javascript templates in various engines <span class="offline label label-success">offline enabled</span></small></h1>
     </header>
 
     <div role="main">
         <div class="row-fluid">
             <div class="span12">
-                <div id="unsupported" class="alert alert-error">Your browser does not support the required features. <a href="http://browsehappy.com/">Upgrade to a different browser</a> <!--[if IE]>or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> <![endif]-->to experience this site.</div>
+                <div class="unsupported alert alert-error">Your browser doesn't support the required features. <a href="http://browsehappy.com/">Upgrade to a different browser</a> <!--[if IE]>or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> <![endif]-->to experience this site.</div>
                 <select id="engine"></select>
                 <button id="reset" class="btn btn-small"><i class="icon-repeat"></i> Reset</button>
                 <span id="engine-info"></span>
@@ -82,8 +82,8 @@
     </script>
 
     <script id="engine-info-template" type="text/x-mustache">
-        &raquo; <span class="label label-info">version</span> {{version}}
-        &raquo; <span class="label label-info">size</span> <span title="minified and gzipped">{{size}}KB</span>
+        &raquo; <span class="label">version</span> {{version}}
+        &raquo; <span class="label">size</span> <span title="minified and gzipped">{{size}}KB</span>
         &raquo; <a href="{{source}}" target="_blank">github</a>
         &raquo; <a href="js/engines/{{id}}.min.js" download>download</a>
     </script>
