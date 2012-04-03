@@ -1,7 +1,7 @@
 /*jslint browser: true */
 /*globals Hogan: false, ace: false, require: false */
 
-(function (Hogan, ace, require, document, localStorage, Worker, setInterval) {
+(function (Hogan, ace, require, document, location, applicationCache, localStorage, Worker, setInterval, confirm) {
     'use strict';
 
         // Constants
@@ -295,18 +295,20 @@
 
 
     // Load application state
-    try {
-        temp = localStorage.getItem('architect.engine');
-        if (temp) {
-            Engines.setActiveEngine(temp);
-        }
+    if (localStorage) {
+        try {
+            temp = localStorage.getItem('architect.engine');
+            if (temp) {
+                Engines.setActiveEngine(temp);
+            }
 
-        templateEditorContent = localStorage.getItem('architect.template') ||
-            Engines.getActiveEngine().template;
+            templateEditorContent = localStorage.getItem('architect.template') ||
+                Engines.getActiveEngine().template;
 
-        viewEditorContent = localStorage.getItem('architect.view') ||
-            viewEditorDefault;
-    } catch (error) {}
+            viewEditorContent = localStorage.getItem('architect.view') ||
+                viewEditorDefault;
+        } catch (error) {}
+    }
 
 
     // Initialise the web worker
@@ -386,15 +388,29 @@
     render();
 
 
-    // Save application state
-    setInterval(function () {
-        var view = viewEditor.getSession().getValue(),
-            template = templateEditor.getSession().getValue();
+    // Notify about new cache version
+    if (applicationCache) {
+        applicationCache.addEventListener('updateready', function () {
+            if (applicationCache.status === applicationCache.UPDATEREADY) {
+                if (confirm('A new version of this site is available. Load it?')) {
+                    location.reload();
+                }
+            }
+        }, false);
+    }
 
-        try {
-            localStorage.setItem('architect.engine', Engines.getActiveEngine().id);
-            localStorage.setItem('architect.template', template);
-            localStorage.setItem('architect.view', view);
-        } catch (error) {}
-    }, SAVE_INTERVAL);
-}(Hogan, ace, require, document, localStorage, Worker, setInterval));
+
+    // Save application state
+    if (localStorage) {
+        setInterval(function () {
+            var view = viewEditor.getSession().getValue(),
+                template = templateEditor.getSession().getValue();
+
+            try {
+                localStorage.setItem('architect.engine', Engines.getActiveEngine().id);
+                localStorage.setItem('architect.template', template);
+                localStorage.setItem('architect.view', view);
+            } catch (error) {}
+        }, SAVE_INTERVAL);
+    }
+}(Hogan, ace, require, document, location, applicationCache, localStorage, Worker, setInterval, confirm));

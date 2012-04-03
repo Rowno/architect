@@ -13,7 +13,7 @@ span[title] {
     cursor: help;
 }
 
-.js.classlist.json.localstorage.webworkers .unsupported {
+.js.classlist.json.webworkers .unsupported {
     display: none;
 }
 
