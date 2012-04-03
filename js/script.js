@@ -11,7 +11,6 @@
         Engines,
         renderingWorker,
         i,
-        selectHtml = '',
         temp,
 
         // Editors
@@ -380,7 +379,7 @@
 
     renderingWorker.on('complete', function (data) {
         if (data.error) {
-            templateErrorElement.textContent = data.error.message;
+            templateErrorElement.textContent = data.error;
             templateElement.classList.add('error');
             resultEditor.getSession().setValue('');
         } else {

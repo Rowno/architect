@@ -10,7 +10,16 @@
                 callback(null, compiledTemplate(view));
             },
             ejs: function (template, view, callback) {
-                callback(null, require('ejs').render(template, view));
+                try {
+                    callback(null, require('ejs').render(template, view));
+                } catch (error) {
+                    if (error.name === 'ReferenceError') {
+                        var lastLineIndex = error.message.lastIndexOf('\n');
+                        callback(error.message.substring(lastLineIndex));
+                    } else {
+                        throw error;
+                    }
+                }
             },
             haml: function (template, view, callback) {
                 var compiledTemplate = Haml(template);
@@ -54,10 +63,7 @@
                 });
             } catch (error) {
                 self.postMessage({
-                    error: {
-                        name: error.name,
-                        message: error.message
-                    },
+                    error: error.message,
                     result: null
                 });
             }
