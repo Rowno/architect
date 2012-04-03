@@ -109,16 +109,6 @@
 </select></script>
 
 
-<script id="template-default-haml" type="text/x-haml">%h1= header
-
-%select
-    :each item in items
-        :if item.active
-            %option{value: item.id, selected:'selected'}= item.name
-        :if !item.active
-            %option{value: item.id}= item.name</script>
-
-
 <script id="template-default-handlebars" type="text/x-mustache"><h1>{{header}}</h1>
 
 <select>

@@ -21,10 +21,6 @@
                     }
                 }
             },
-            haml: function (template, view, callback) {
-                var compiledTemplate = Haml(template);
-                callback(null, compiledTemplate(view));
-            },
             handlebars: function (template, view, callback) {
                 var compiledTemplate = Handlebars.compile(template);
                 callback(null, compiledTemplate(view));

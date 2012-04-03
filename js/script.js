@@ -61,13 +61,6 @@
                     source: 'https://github.com/visionmedia/ejs'
                 },
                 {
-                    id: 'haml',
-                    name: 'Haml.js',
-                    version: '0.4.2',
-                    size: '3.5',
-                    source: 'https://github.com/creationix/haml-js'
-                },
-                {
                     id: 'handlebars',
                     name: 'Handlebars.js',
                     version: '1.0.6beta',
