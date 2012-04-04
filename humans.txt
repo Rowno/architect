@@ -8,7 +8,7 @@
     Location: New Zealand
 
 /* SITE */
-    Standards: HTML5, CSS3, JSON, Application Cache, LocalStorage, Web Workers
-    Components: HTML5 Boilerplate, Bootstrap, Modernizr, Ace Editor, Hogan.js
+    Standards: HTML5, CSS3, JSON, Application Cache, LocalStorage, Web Workers, Media Queries
+    Components: HTML5 Boilerplate, Twitter Bootstrap, Modernizr, Ace Editor, Hogan.js
     Source: https://github.com/Rowno/architect
     Software: Sublime Text 2
