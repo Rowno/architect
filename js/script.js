@@ -1,151 +1,122 @@
 /*jslint browser: true */
 /*globals Hogan: false, ace: false, require: false */
 
-(function (Hogan, ace, require, document, location, applicationCache, localStorage, Worker, setInterval, confirm) {
+if (!Architect) {
+    var Architect = {};
+}
+
+
+/**
+ * Singleton that encapsulates the defined templating engines.
+ */
+(function (Architect) {
     'use strict';
 
-        // Constants
-    var SAVE_INTERVAL = 5000,
+    var engines = [
+            {
+                id: 'dot',
+                name: 'doT.js',
+                version: '0.1.7',
+                size: '1.2',
+                source: 'https://github.com/olado/doT'
+            },
+            {
+                id: 'ejs',
+                name: 'EJS',
+                version: '0.6.1',
+                size: '2.5',
+                source: 'https://github.com/visionmedia/ejs'
+            },
+            {
+                id: 'handlebars',
+                name: 'Handlebars.js',
+                version: '1.0.6beta',
+                size: '9.6',
+                source: 'https://github.com/wycats/handlebars.js'
+            },
+            {
+                id: 'hogan',
+                name: 'Hogan.js',
+                version: '2.0.0',
+                size: '2.8',
+                source: 'https://github.com/twitter/hogan.js'
+            },
+            {
+                id: 'jade',
+                name: 'Jade',
+                version: '0.21.0',
+                size: '9.3',
+                source: 'https://github.com/visionmedia/jade'
+            },
+            {
+                id: 'mustache',
+                name: 'Mustache.js',
+                version: '0.4.2',
+                size: '2.2',
+                source: 'https://github.com/janl/mustache.js'
+            },
+            {
+                id: 'underscore',
+                name: 'Underscore.js',
+                version: '1.3.1',
+                size: '4.4',
+                source: 'https://github.com/documentcloud/underscore'
+            }
+        ],
+        activeEngine = engines[0],
+        exports = {};
 
-        // Misc
-        Engines,
-        renderingWorker,
-        temp,
 
-        // Editors
-        JSONMode = require('ace/mode/json').Mode,
-        HTMLMode = require('ace/mode/html').Mode,
-        templateEditor = ace.edit('template'),
-        templateEditorContent = '',
-        viewEditor = ace.edit('view'),
-        viewEditorDefault = document.getElementById('view-default').innerHTML,
-        viewEditorContent = '',
-        resultEditor = ace.edit('result'),
-
-        // Cached DOM elements
-        templateElement = document.getElementById('template'),
-        templateErrorElement = document.getElementById('template-error'),
-        viewElement = document.getElementById('view'),
-        viewErrorElement = document.getElementById('view-error'),
-        engineElement = document.getElementById('engine'),
-        engineInfoElement = document.getElementById('engine-info'),
-        resetElement = document.getElementById('reset'),
-
-        // Hogan templates
-        engineTemplate = Hogan.compile(
-            document.getElementById('engine-template').innerHTML
-        ),
-        engineInfoTemplate = Hogan.compile(
-            document.getElementById('engine-info-template').innerHTML
-        );
+    // Initialise engines' default template
+    engines.forEach(function (engine) {
+        engine.template = document.getElementById('template-default-' +
+            engine.id).innerHTML;
+    });
 
 
     /**
-     * Singleton that encapsulates the defined templating engines.
+     * Gets the active engine.
+     *
+     * @returns {object} Map of the engine's info.
      */
-    Engines = (function () {
-        var engines = [
-                {
-                    id: 'dot',
-                    name: 'doT.js',
-                    version: '0.1.7',
-                    size: '1.2',
-                    source: 'https://github.com/olado/doT'
-                },
-                {
-                    id: 'ejs',
-                    name: 'EJS',
-                    version: '0.6.1',
-                    size: '2.5',
-                    source: 'https://github.com/visionmedia/ejs'
-                },
-                {
-                    id: 'handlebars',
-                    name: 'Handlebars.js',
-                    version: '1.0.6beta',
-                    size: '9.6',
-                    source: 'https://github.com/wycats/handlebars.js'
-                },
-                {
-                    id: 'hogan',
-                    name: 'Hogan.js',
-                    version: '2.0.0',
-                    size: '2.8',
-                    source: 'https://github.com/twitter/hogan.js'
-                },
-                {
-                    id: 'jade',
-                    name: 'Jade',
-                    version: '0.21.0',
-                    size: '9.3',
-                    source: 'https://github.com/visionmedia/jade'
-                },
-                {
-                    id: 'mustache',
-                    name: 'Mustache.js',
-                    version: '0.4.2',
-                    size: '2.2',
-                    source: 'https://github.com/janl/mustache.js'
-                },
-                {
-                    id: 'underscore',
-                    name: 'Underscore.js',
-                    version: '1.3.1',
-                    size: '4.4',
-                    source: 'https://github.com/documentcloud/underscore'
-                }
-            ],
-            activeEngine = engines[0],
-            exports = {};
+    function getActiveEngine() {
+        return activeEngine;
+    }
+    exports.getActiveEngine = getActiveEngine;
 
 
-        // Initialise engines' default template
+    /**
+     * Sets the active engine.
+     *
+     * @param {string} engineId ID of the engine.
+     */
+    function setActiveEngine(engineId) {
         engines.forEach(function (engine) {
-            engine.template = document.getElementById('template-default-' +
-                engine.id).innerHTML;
+            if (engine.id === engineId) {
+                activeEngine = engine;
+            }
         });
+    }
+    exports.setActiveEngine = setActiveEngine;
 
 
-        /**
-         * Gets the active engine.
-         *
-         * @returns {object} Map of the engine's info.
-         */
-        function getActiveEngine() {
-            return activeEngine;
-        }
-        exports.getActiveEngine = getActiveEngine;
+    /**
+     * Get all of the defined engines.
+     *
+     * @returns {array.<object>} Array of maps of the engine info.
+     */
+    function getEngines() {
+        return engines;
+    }
+    exports.getEngines = getEngines;
 
 
-        /**
-         * Sets the active engine.
-         *
-         * @param {string} engineId ID of the engine.
-         */
-        function setActiveEngine(engineId) {
-            engines.forEach(function (engine) {
-                if (engine.id === engineId) {
-                    activeEngine = engine;
-                }
-            });
-        }
-        exports.setActiveEngine = setActiveEngine;
+    Architect.Engines = exports;
+}(Architect));
 
 
-        /**
-         * Get all of the defined engines.
-         *
-         * @returns {array.<object>} Array of maps of the engine info.
-         */
-        function getEngines() {
-            return engines;
-        }
-        exports.getEngines = getEngines;
-
-
-        return exports;
-    }());
-
+(function (Architect) {
+    'use strict';
 
     /**
      * A basic object for listening to and emitting events.
@@ -185,7 +156,12 @@
             }
         };
     }
+    Architect.EventEmitter = EventEmitter;
+}(Architect));
 
+
+(function (Architect, EventEmitter, Worker) {
+    'use strict';
 
     /**
      * Encaspulates a web worker that renders templates using various engines.
@@ -271,6 +247,46 @@
 
         init();
     }
+    Architect.RenderWorker = RenderWorker;
+}(Architect, Architect.EventEmitter, window.Worker));
+
+
+(function (Architect, Engines, RenderWorker, Hogan, ace, require, document, location, applicationCache, localStorage, setInterval, confirm) {
+    'use strict';
+
+        // Constants
+    var SAVE_INTERVAL = 5000,
+
+        // Misc
+        renderingWorker,
+        temp,
+
+        // Editors
+        JSONMode = require('ace/mode/json').Mode,
+        HTMLMode = require('ace/mode/html').Mode,
+        templateEditor = ace.edit('template'),
+        templateEditorContent = '',
+        viewEditor = ace.edit('view'),
+        viewEditorDefault = document.getElementById('view-default').innerHTML,
+        viewEditorContent = '',
+        resultEditor = ace.edit('result'),
+
+        // Cached DOM elements
+        templateElement = document.getElementById('template'),
+        templateErrorElement = document.getElementById('template-error'),
+        viewElement = document.getElementById('view'),
+        viewErrorElement = document.getElementById('view-error'),
+        engineElement = document.getElementById('engine'),
+        engineInfoElement = document.getElementById('engine-info'),
+        resetElement = document.getElementById('reset'),
+
+        // Hogan templates
+        engineTemplate = Hogan.compile(
+            document.getElementById('engine-template').innerHTML
+        ),
+        engineInfoTemplate = Hogan.compile(
+            document.getElementById('engine-info-template').innerHTML
+        );
 
 
     /**
@@ -415,4 +431,4 @@
             } catch (error) {}
         }, SAVE_INTERVAL);
     }
-}(Hogan, ace, require, document, location, window.applicationCache, window.localStorage, Worker, setInterval, confirm));
+}(Architect, Architect.Engines, Architect.RenderWorker, Hogan, ace, require, document, location, window.applicationCache, window.localStorage, window.setInterval, window.confirm));
