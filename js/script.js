@@ -415,4 +415,4 @@
             } catch (error) {}
         }, SAVE_INTERVAL);
     }
-}(Hogan, ace, require, document, location, applicationCache, localStorage, Worker, setInterval, confirm));
+}(Hogan, ace, require, document, location, window.applicationCache, window.localStorage, Worker, setInterval, confirm));
