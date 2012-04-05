@@ -283,11 +283,12 @@
 
         try {
             json = JSON.parse(view);
-            viewErrorElement.textContent = '';
-            viewElement.classList.remove('error');
+            viewElement.setAttribute('aria-invalid', false);
+            viewErrorElement.setAttribute('aria-hidden', true);
         } catch (error) {
+            viewElement.setAttribute('aria-invalid', true);
             viewErrorElement.textContent = 'syntax error';
-            viewElement.classList.add('error');
+            viewErrorElement.setAttribute('aria-hidden', false);
         }
 
         renderingWorker.render(template, json);
@@ -373,12 +374,13 @@
 
     renderingWorker.on('complete', function (data) {
         if (data.error) {
+            templateElement.setAttribute('aria-invalid', true);
             templateErrorElement.textContent = data.error;
-            templateElement.classList.add('error');
+            templateErrorElement.setAttribute('aria-hidden', false);
             resultEditor.getSession().setValue('');
         } else {
-            templateErrorElement.textContent = '';
-            templateElement.classList.remove('error');
+            templateElement.setAttribute('aria-invalid', false);
+            templateErrorElement.setAttribute('aria-hidden', true);
             resultEditor.getSession().setValue(data.result);
         }
     });

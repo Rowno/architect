@@ -8,6 +8,14 @@ body {
     overflow-y: scroll; /* Workaround for Ace rendering bug */
 }
 
+[aria-hidden=true] {
+    display: none;
+}
+
+h1, label, label select, address {
+    display: inline;
+}
+
 span[title] {
     border-bottom: 1px dotted #ddd;
     cursor: help;
@@ -42,7 +50,7 @@ span[title] {
     height: 250px;
 }
 
-.ace_editor.error {
+.ace_editor[aria-invalid=true] {
     outline: 3px solid red;
 }
 
