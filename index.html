@@ -28,54 +28,121 @@
 </head>
 <body class="container-fluid">
     <header role="banner" class="page-header">
-        <h1>Architect <small>Edit Javascript templates in various engines</small></h1> <span class="offline label label-success">offline enabled</span>
+        <h1>
+            Architect
+            <small>Edit Javascript templates in various engines</small>
+        </h1>
+        <span class="offline label label-success">offline enabled</span>
     </header>
 
     <div role="main">
         <div class="row-fluid">
             <div class="span12">
-                <div class="unsupported alert alert-error" role="alert">Your browser doesn't support the required features. <a href="http://browsehappy.com/">Upgrade to a different browser</a> <!--[if IE]>or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> <![endif]-->to experience this site.</div>
-                <label>Engine: <select id="engine" aria-controls="template view engine-info"></select></label>
-                <button id="reset" class="btn btn-small" aria-controls="template view"><i class="icon-repeat"></i> Reset</button>
+                <div class="unsupported alert alert-error" role="alert">
+                    Your browser doesn't support the required features.
+                    <a href="http://browsehappy.com/">
+                        Upgrade to a different browser
+                    </a>
+                    <!--[if IE]>
+                        or
+                        <a href="http://www.google.com/chromeframe/?redirect=true">
+                            install Google Chrome Frame
+                        </a>
+                    <![endif]-->
+                    to experience this site.
+                </div>
+
+                <label>
+                    Engine:
+                    <select id="engine" aria-controls="template view engine-info"></select>
+                </label>
+
+                <button id="reset" class="btn btn-small" aria-controls="template view">
+                    <i class="icon-repeat"></i>
+                    Reset
+                </button>
+
                 <span id="engine-info"></span>
             </div>
         </div>
 
         <div class="row-fluid">
             <section class="span6">
-                <span id="template-error" class="editor-error" role="alert" aria-hidden="true"></span>
+                <span id="template-error"
+                      class="editor-error"
+                      role="alert"
+                      aria-hidden="true">
+                </span>
+
                 <h2>Template</h2>
-                <div id="template" role="application" aria-invalid="false" aria-controls="result template-error"></div>
+
+                <div id="template"
+                     role="application"
+                     aria-invalid="false"
+                     aria-controls="result template-error">
+                </div>
             </section>
 
             <section class="span6">
-                <span id="view-error" class="editor-error" role="alert" aria-hidden="true"></span>
+                <span id="view-error"
+                      class="editor-error"
+                      role="alert"
+                      aria-hidden="true">
+                </span>
+
                 <h2>View</h2>
-                <div id="view" role="application" aria-invalid="false" aria-controls="result view-error"></div>
+
+                <div id="view"
+                     role="application"
+                     aria-invalid="false"
+                     aria-controls="result view-error">
+                </div>
             </section>
         </div>
 
         <div class="row-fluid">
             <section class="span12">
                 <h2>Result</h2>
+
                 <div id="result" role="application"></div>
             </section>
         </div>
     </div>
 
     <footer role="contentinfo">
-        <a href="http://www.w3.org/html/logo/"><img src="http://www.w3.org/html/logo/badge/html5-badge-h-css3-performance-semantics-storage.png" width="229" height="64" alt="HTML5 Powered with CSS3 / Styling, Performance &amp; Integration, Semantics, and Offline &amp; Storage" title="HTML5 Powered with CSS3 / Styling, Performance &amp; Integration, Semantics, and Offline &amp; Storage"></a>
+        <a href="http://www.w3.org/html/logo/"
+            ><img src="http://www.w3.org/html/logo/badge/html5-badge-h-css3-performance-semantics-storage.png"
+                  width="229"
+                  height="64"
+                  alt="HTML5 Powered with CSS3 / Styling, Performance &amp; Integration, Semantics, and Offline &amp; Storage"
+                  title="HTML5 Powered with CSS3 / Styling, Performance &amp; Integration, Semantics, and Offline &amp; Storage"
+        ></a>
 
         By <address class="vcard">
-            <a class="url fn" href="http://rolandwarmerdam.co.nz/" rel="author">Roland Warmerdam</a>
+            <a class="url fn" href="http://rolandwarmerdam.co.nz/" rel="author">
+                Roland Warmerdam
+            </a>
         </address>
 
-        <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons Attribution-ShareAlike 3.0 Unported License" title="Creative Commons Attribution-ShareAlike 3.0 Unported License" src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png" width="88" height="31"></a>
+        <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"
+            ><img alt="Creative Commons Attribution-ShareAlike 3.0 Unported License"
+                  title="Creative Commons Attribution-ShareAlike 3.0 Unported License"
+                  src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png"
+                  width="88"
+                  height="31"
+        ></a>
 
-        <a href="https://github.com/Rowno/architect" id="ribbon-link">Fork me on GitHub</a>
+        <a href="https://github.com/Rowno/architect" id="ribbon-link">
+            Fork me on GitHub
+        </a>
     </footer>
 
-    <a href="https://github.com/Rowno/architect" id="ribbon"><img src="http://a248.e.akamai.net/assets.github.com/img/71eeaab9d563c2b3c590319b398dd35683265e85/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" width="149" height="149"></a>
+    <a href="https://github.com/Rowno/architect" id="ribbon">
+        <img src="http://a248.e.akamai.net/assets.github.com/img/71eeaab9d563c2b3c590319b398dd35683265e85/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67"
+             alt="Fork me on GitHub"
+             width="149"
+             height="149">
+     </a>
 
 
     <script id="engine-template" type="text/x-mustache">
@@ -83,10 +150,17 @@
     </script>
 
     <script id="engine-info-template" type="text/x-mustache">
-        <span role="separator">&raquo;</span> <span class="label">version</span> {{version}}
-        <span role="separator">&raquo;</span> <span class="label">size</span> <span title="minified and gzipped">{{size}}KB</span>
-        <span role="separator">&raquo;</span> <a href="{{source}}" target="_blank">github</a>
-        <span role="separator">&raquo;</span> <a href="js/engines/{{id}}.min.js" download>download</a>
+        <span role="separator">&raquo;</span>
+        <span class="label">version</span> {{version}}
+
+        <span role="separator">&raquo;</span>
+        <span class="label">size</span> <span title="minified and gzipped">{{size}}KB</span>
+
+        <span role="separator">&raquo;</span>
+        <a href="{{source}}" target="_blank">github</a>
+
+        <span role="separator">&raquo;</span>
+        <a href="js/engines/{{id}}.min.js" download>download</a>
     </script>
 
 
