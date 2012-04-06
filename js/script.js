@@ -410,8 +410,8 @@ if (!Architect) {
     if (applicationCache) {
         applicationCache.addEventListener('updateready', function () {
             if (applicationCache.status === applicationCache.UPDATEREADY) {
-                if (confirm('A new version of this site is available. Load it?')) {
-                    location.reload();
+                if (confirm('An updated version of Architect is available. Load it?')) {
+                    location.reload(true);
                 }
             }
         }, false);
