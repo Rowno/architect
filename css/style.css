@@ -21,7 +21,7 @@ span[title] {
     cursor: help;
 }
 
-.js.classlist.json.webworkers .unsupported {
+.js.json.webworkers .unsupported {
     display: none;
 }
 
