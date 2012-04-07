@@ -254,181 +254,188 @@ if (!Architect) {
 (function (Architect, Engines, RenderWorker, Hogan, ace, require, document, location, applicationCache, localStorage, setInterval, confirm) {
     'use strict';
 
-        // Constants
-    var SAVE_INTERVAL = 5000,
+    function init() {
+        // Show app
+        document.getElementById('app').setAttribute('aria-hidden', false);
 
-        // Misc
-        renderingWorker,
-        temp,
+            // Constants
+        var SAVE_INTERVAL = 5000,
 
-        // Editors
-        JSONMode = require('ace/mode/json').Mode,
-        HTMLMode = require('ace/mode/html').Mode,
-        templateEditor = ace.edit('template'),
-        templateEditorContent = '',
-        viewEditor = ace.edit('view'),
-        viewEditorDefault = document.getElementById('view-default').innerHTML,
-        viewEditorContent = '',
-        resultEditor = ace.edit('result'),
+            // Misc
+            renderingWorker,
+            temp,
 
-        // Cached DOM elements
-        templateElement = document.getElementById('template'),
-        templateErrorElement = document.getElementById('template-error'),
-        viewElement = document.getElementById('view'),
-        viewErrorElement = document.getElementById('view-error'),
-        engineElement = document.getElementById('engine'),
-        engineInfoElement = document.getElementById('engine-info'),
-        resetElement = document.getElementById('reset'),
+            // Editors
+            JSONMode = require('ace/mode/json').Mode,
+            HTMLMode = require('ace/mode/html').Mode,
+            templateEditor = ace.edit('template'),
+            templateEditorContent = '',
+            viewEditor = ace.edit('view'),
+            viewEditorDefault = document.getElementById('view-default').innerHTML,
+            viewEditorContent = '',
+            resultEditor = ace.edit('result'),
 
-        // Hogan templates
-        engineTemplate = Hogan.compile(
-            document.getElementById('engine-template').innerHTML
-        ),
-        engineInfoTemplate = Hogan.compile(
-            document.getElementById('engine-info-template').innerHTML
-        );
+            // Cached DOM elements
+            templateElement = document.getElementById('template'),
+            templateErrorElement = document.getElementById('template-error'),
+            viewElement = document.getElementById('view'),
+            viewErrorElement = document.getElementById('view-error'),
+            engineElement = document.getElementById('engine'),
+            engineInfoElement = document.getElementById('engine-info'),
+            resetElement = document.getElementById('reset'),
 
-
-    /**
-     * Sends the current state of the editors to be rendered by the web worker.
-     */
-    function render() {
-        var json = {},
-            view = viewEditor.getSession().getValue(),
-            template = templateEditor.getSession().getValue();
-
-        try {
-            json = JSON.parse(view);
-            viewElement.setAttribute('aria-invalid', false);
-            viewErrorElement.setAttribute('aria-hidden', true);
-        } catch (error) {
-            viewElement.setAttribute('aria-invalid', true);
-            viewErrorElement.textContent = 'syntax error';
-            viewErrorElement.setAttribute('aria-hidden', false);
-        }
-
-        renderingWorker.render(template, json);
-    }
+            // Hogan templates
+            engineTemplate = Hogan.compile(
+                document.getElementById('engine-template').innerHTML
+            ),
+            engineInfoTemplate = Hogan.compile(
+                document.getElementById('engine-info-template').innerHTML
+            );
 
 
-    // Load application state
-    if (localStorage) {
-        try {
-            temp = localStorage.getItem('architect.engine');
-            if (temp) {
-                Engines.setActiveEngine(temp);
+        /**
+         * Sends the current state of the editors to be rendered by the web worker.
+         */
+        function render() {
+            var json = {},
+                view = viewEditor.getSession().getValue(),
+                template = templateEditor.getSession().getValue();
+
+            try {
+                json = JSON.parse(view);
+                viewElement.setAttribute('aria-invalid', false);
+                viewErrorElement.setAttribute('aria-hidden', true);
+            } catch (error) {
+                viewElement.setAttribute('aria-invalid', true);
+                viewErrorElement.textContent = 'syntax error';
+                viewErrorElement.setAttribute('aria-hidden', false);
             }
 
-            templateEditorContent = localStorage.getItem('architect.template') ||
-                Engines.getActiveEngine().template;
-
-            viewEditorContent = localStorage.getItem('architect.view') ||
-                viewEditorDefault;
-        } catch (error) {}
-    }
+            renderingWorker.render(template, json);
+        }
 
 
-    // Initialise the web worker
-    renderingWorker = new RenderWorker(Engines.getActiveEngine());
+        // Load application state
+        if (localStorage) {
+            try {
+                temp = localStorage.getItem('architect.engine');
+                if (temp) {
+                    Engines.setActiveEngine(temp);
+                }
+
+                templateEditorContent = localStorage.getItem('architect.template') ||
+                    Engines.getActiveEngine().template;
+
+                viewEditorContent = localStorage.getItem('architect.view') ||
+                    viewEditorDefault;
+            } catch (error) {}
+        }
 
 
-    // Initialise the engine select
-    temp = '';
-    Engines.getEngines().forEach(function (engine) {
-        temp += engineTemplate.render({
-            id: engine.id,
-            name: engine.name,
-            selected: engine.id === Engines.getActiveEngine().id
+        // Initialise the web worker
+        renderingWorker = new RenderWorker(Engines.getActiveEngine());
+
+
+        // Initialise the engine select
+        temp = '';
+        Engines.getEngines().forEach(function (engine) {
+            temp += engineTemplate.render({
+                id: engine.id,
+                name: engine.name,
+                selected: engine.id === Engines.getActiveEngine().id
+            });
         });
-    });
-    engineElement.innerHTML = temp;
-
-    engineInfoElement.innerHTML = engineInfoTemplate.render(
-        Engines.getActiveEngine()
-    );
-
-
-    // Initialise the editors
-    templateEditor.getSession().setMode(new HTMLMode());
-    templateEditor.getSession().setValue(templateEditorContent);
-    viewEditor.getSession().setMode(new JSONMode());
-    viewEditor.getSession().setValue(viewEditorContent);
-    resultEditor.getSession().setMode(new HTMLMode());
-    resultEditor.setReadOnly(true);
-
-
-    // Event handlers
-
-    templateEditor.getSession().on('change', render);
-    viewEditor.getSession().on('change', render);
-
-
-    engineElement.addEventListener('change', function () {
-        var previousEngine = Engines.getActiveEngine();
-
-        Engines.setActiveEngine(engineElement.value);
+        engineElement.innerHTML = temp;
 
         engineInfoElement.innerHTML = engineInfoTemplate.render(
             Engines.getActiveEngine()
         );
 
-        // Only reset the template editor if the content has been changed
-        if (previousEngine.template === templateEditor.getSession().getValue()) {
-            templateEditor.getSession().setValue(Engines.getActiveEngine().template);
-        }
 
-        renderingWorker.changeEngine(Engines.getActiveEngine());
-        render();
-    }, false);
-
-
-    resetElement.addEventListener('click', function () {
-        templateEditor.getSession().setValue(Engines.getActiveEngine().template);
-        viewEditor.getSession().setValue(viewEditorDefault);
-    }, false);
+        // Initialise the editors
+        templateEditor.getSession().setMode(new HTMLMode());
+        templateEditor.getSession().setValue(templateEditorContent);
+        viewEditor.getSession().setMode(new JSONMode());
+        viewEditor.getSession().setValue(viewEditorContent);
+        resultEditor.getSession().setMode(new HTMLMode());
+        resultEditor.setReadOnly(true);
 
 
-    renderingWorker.on('complete', function (data) {
-        if (data.error) {
-            templateElement.setAttribute('aria-invalid', true);
-            templateErrorElement.textContent = data.error;
-            templateErrorElement.setAttribute('aria-hidden', false);
-            resultEditor.getSession().setValue('');
-        } else {
-            templateElement.setAttribute('aria-invalid', false);
-            templateErrorElement.setAttribute('aria-hidden', true);
-            resultEditor.getSession().setValue(data.result);
-        }
-    });
+        // Event handlers
+
+        templateEditor.getSession().on('change', render);
+        viewEditor.getSession().on('change', render);
 
 
-    // Initial render
-    render();
+        engineElement.addEventListener('change', function () {
+            var previousEngine = Engines.getActiveEngine();
 
+            Engines.setActiveEngine(engineElement.value);
 
-    // Notify about new cache version
-    if (applicationCache) {
-        applicationCache.addEventListener('updateready', function () {
-            if (applicationCache.status === applicationCache.UPDATEREADY) {
-                if (confirm('An updated version of Architect is available. Load it?')) {
-                    location.reload(true);
-                }
+            engineInfoElement.innerHTML = engineInfoTemplate.render(
+                Engines.getActiveEngine()
+            );
+
+            // Only reset the template editor if the content has been changed
+            if (previousEngine.template === templateEditor.getSession().getValue()) {
+                templateEditor.getSession().setValue(Engines.getActiveEngine().template);
             }
+
+            renderingWorker.changeEngine(Engines.getActiveEngine());
+            render();
         }, false);
+
+
+        resetElement.addEventListener('click', function () {
+            templateEditor.getSession().setValue(Engines.getActiveEngine().template);
+            viewEditor.getSession().setValue(viewEditorDefault);
+        }, false);
+
+
+        renderingWorker.on('complete', function (data) {
+            if (data.error) {
+                templateElement.setAttribute('aria-invalid', true);
+                templateErrorElement.textContent = data.error;
+                templateErrorElement.setAttribute('aria-hidden', false);
+                resultEditor.getSession().setValue('');
+            } else {
+                templateElement.setAttribute('aria-invalid', false);
+                templateErrorElement.setAttribute('aria-hidden', true);
+                resultEditor.getSession().setValue(data.result);
+            }
+        });
+
+
+        // Initial render
+        render();
+
+
+        // Notify about new cache version
+        if (applicationCache) {
+            applicationCache.addEventListener('updateready', function () {
+                if (applicationCache.status === applicationCache.UPDATEREADY) {
+                    if (confirm('An updated version of Architect is available. Load it?')) {
+                        location.reload(true);
+                    }
+                }
+            }, false);
+        }
+
+
+        // Save application state
+        if (localStorage) {
+            setInterval(function () {
+                var view = viewEditor.getSession().getValue(),
+                    template = templateEditor.getSession().getValue();
+
+                try {
+                    localStorage.setItem('architect.engine', Engines.getActiveEngine().id);
+                    localStorage.setItem('architect.template', template);
+                    localStorage.setItem('architect.view', view);
+                } catch (error) {}
+            }, SAVE_INTERVAL);
+        }
     }
-
-
-    // Save application state
-    if (localStorage) {
-        setInterval(function () {
-            var view = viewEditor.getSession().getValue(),
-                template = templateEditor.getSession().getValue();
-
-            try {
-                localStorage.setItem('architect.engine', Engines.getActiveEngine().id);
-                localStorage.setItem('architect.template', template);
-                localStorage.setItem('architect.view', view);
-            } catch (error) {}
-        }, SAVE_INTERVAL);
-    }
+    Architect.init = init;
+    init();
 }(Architect, Architect.Engines, Architect.RenderWorker, Hogan, ace, require, document, location, window.applicationCache, window.localStorage, window.setInterval, window.confirm));
