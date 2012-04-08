@@ -437,5 +437,4 @@ if (!Architect) {
         }
     }
     Architect.init = init;
-    init();
 }(Architect, Architect.Engines, Architect.RenderWorker, Hogan, ace, require, document, location, window.applicationCache, window.localStorage, window.setInterval, window.confirm));

@@ -36,19 +36,7 @@
     </header>
 
     <div role="main">
-        <div class="unsupported alert alert-error" role="alert">
-            Your browser doesn't support the required features.
-            <a href="http://browsehappy.com/">
-                Upgrade to a different browser
-            </a>
-            <!--[if IE]>
-                or
-                <a href="http://www.google.com/chromeframe/?redirect=true">
-                    install Google Chrome Frame
-                </a>
-            <![endif]-->
-            to experience this site.
-        </div>
+        <div id="unsupported" role="alert" aria-hidden="true"></div>
 
         <div id="app" aria-hidden="true">
             <div class="row-fluid">
@@ -167,7 +155,6 @@
 
 
 
-
 <script id="template-default-dot" type="text/x-dot"><h1>{{=it.header}}</h1>
 
 <select>
@@ -242,18 +229,33 @@ select
 }</script>
 
 
+
     <script>
-        if (Modernizr.webworkers && Modernizr.json) {
-            Modernizr.load({
-                load: [
-                    'js/ace/ace.js',
-                    'js/ace/mode-json.js',
-                    'js/ace/mode-html.js',
-                    'js/engines/hogan.min.js',
-                    'js/script.js'
-                ]
-            });
-        }
+        Modernizr.html5please = function(opts){ var passes = true; var features = opts.features.split('+'); var feat; for (var i = -1, len = features.length; ++i < len; ){ feat = features[i]; if (Modernizr[feat] === undefined) window.console && console.warn('Modernizr.' + feat + ' test not found'); if (Modernizr[feat] === false) passes = false; } if (passes){ opts.yep && opts.yep(); return passes; } Modernizr.html5please.cb = opts.nope; var script = document.createElement('script'); var ref = document.getElementsByTagName('script')[0]; var url = 'http://api.html5please.com/' + features.join('+') + '.json?callback=Modernizr.html5please.cb' + (opts.options ? ('&' + opts.options) : '') + '&html'; script.src = url; ref.parentNode.insertBefore(script, ref); return false; };
+
+        Modernizr.html5please({
+            features: 'webworkers+json',
+            options: 'texticon',
+            yep: function () {
+                Modernizr.load({
+                    load: [
+                        'js/ace/ace.js',
+                        'js/ace/mode-json.js',
+                        'js/ace/mode-html.js',
+                        'js/engines/hogan.min.js',
+                        'js/script.js'
+                    ],
+                    complete: function () {
+                        Architect.init();
+                    }
+                });
+            },
+            nope: function (result) {
+                var unsupportedElement = document.getElementById('unsupported');
+                unsupportedElement.innerHTML=result.html;
+                unsupportedElement.setAttribute('aria-hidden', false);
+            }
+        });
     </script>
 
 

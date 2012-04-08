@@ -21,10 +21,6 @@ span[title] {
     cursor: help;
 }
 
-.js.json.webworkers .unsupported {
-    display: none;
-}
-
 .offline {
     display: none;
 }
