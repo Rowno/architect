@@ -8,7 +8,7 @@ Making and Credits
 ------------------
 Architect started life as a simple page for testing Mustache templates, but quickly evolved into a web app for editing templates in all the popular Javascript templating engines.
 
-Architect was made using vanilla DOM methods (no jQuery) and without any polyfills. I did this as a learning experience and to avoid jQuery and polyfill bloat. Since the app is targeted at web developers, browser support shouldn't be a problem (if you're a web developer using an outdated browser, shame on you!).
+Architect was made using native DOM methods (no jQuery) and without any polyfills. I did this as a learning experience and to avoid jQuery and polyfill bloat. Since the app is targeted at web developers, browser support shouldn't be a problem (if you're a web developer using an outdated browser, shame on you!).
 
 Below are all the HTML5 features and open source components used by Architect, and what they're used for:
 
