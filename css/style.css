@@ -51,13 +51,33 @@ span[title] {
 }
 
 #ribbon {
+    display: block;
     position: absolute;
     top: 0;
     right: 0;
+    width: 149px;
+    height: 149px;
+    background: url(../img/sprite.png) 0 0;
 }
 
 #ribbon-link {
     display: none;
+}
+
+#license {
+    display: inline-block;
+    width: 88px;
+    height: 31px;
+    vertical-align: middle;
+    background: url(../img/sprite.png) -160px 0;
+}
+
+#html5 {
+    display: inline-block;
+    width: 210px;
+    height: 64px;
+    vertical-align: middle;
+    background: url(../img/sprite.png) 0 -160px;
 }
 
 footer {
@@ -69,7 +89,7 @@ footer {
     }
 
 
-@media (max-width: 768px) {
+@media (max-width: 800px) {
     #ribbon {
         display: none;
     }

@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# de03e4189d2fe722a5b2d97addc7c897b4680a4b
+# 392400ec7178e76272ead40c80ed5c1efe9379a7
 
 
 CACHE:
@@ -9,6 +9,7 @@ css/style.css
 
 img/glyphicons-halflings-white.png
 img/glyphicons-halflings.png
+img/sprite.png
 favicon.ico
 
 js/ace/ace.js
@@ -26,10 +27,6 @@ js/engines/underscore.min.js
 js/modernizr.min.js
 js/script.js
 js/worker.js
-
-http://a248.e.akamai.net/assets.github.com/img/71eeaab9d563c2b3c590319b398dd35683265e85/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67
-http://www.w3.org/html/logo/badge/html5-badge-h-css3-performance-semantics-storage.png
-http://i.creativecommons.org/l/by-sa/3.0/88x31.png
 
 
 NETWORK:
