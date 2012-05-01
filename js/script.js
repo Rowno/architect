@@ -16,8 +16,8 @@ if (!Architect) {
             {
                 id: 'dot',
                 name: 'doT.js',
-                version: '0.1.7',
-                size: '1.2',
+                version: '0.2.0',
+                size: '1.6',
                 source: 'https://github.com/olado/doT'
             },
             {
@@ -44,8 +44,8 @@ if (!Architect) {
             {
                 id: 'jade',
                 name: 'Jade',
-                version: '0.21.0',
-                size: '9.3',
+                version: '0.25.0',
+                size: '10.1',
                 source: 'https://github.com/visionmedia/jade'
             },
             {
@@ -58,8 +58,8 @@ if (!Architect) {
             {
                 id: 'underscore',
                 name: 'Underscore.js',
-                version: '1.3.1',
-                size: '4.4',
+                version: '1.3.3',
+                size: '4.6',
                 source: 'https://github.com/documentcloud/underscore'
             }
         ],
