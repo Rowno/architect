@@ -10,6 +10,6 @@
     },
     "launch_path": "http://rowno.github.com/architect/",
     "installs_allowed_from": [
-        "https://marketplace.mozilla.org/"
+        "https://marketplace.mozilla.org"
     ]
 }
