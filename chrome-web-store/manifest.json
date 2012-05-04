@@ -1,0 +1,24 @@
+{
+  "app": {
+    "launch": {
+      "urls": [
+        "http://rowno.github.com/architect/"
+      ],
+      "web_url": "http://rowno.github.com/architect/",
+      "container": "tab"
+    }
+  },
+  "offline_enabled": true,
+  "permissions": [],
+  "requirements": {
+    "3D": {
+      "features": []
+    }
+  },
+  "icons": {
+    "128": "icon-128.png"
+  },
+  "name": "Architect - Javascript Template Editor",
+  "description": "Edit Javascript templates in various engines",
+  "version": "1.0.0.0"
+}

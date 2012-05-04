@@ -1,0 +1,15 @@
+{
+    "name": "Architect - Javascript Template Editor",
+    "description": "Edit Javascript templates in various engines",
+    "icons": {
+        "128": "/architect/chrome-web-store/icon-128.png"
+    },
+    "developer": {
+        "name": "Roland Warmerdam",
+        "url": "http://rolandwarmerdam.co.nz/"
+    },
+    "launch_path": "http://rowno.github.com/architect/",
+    "installs_allowed_from": [
+        "https://marketplace.mozilla.org/"
+    ]
+}
