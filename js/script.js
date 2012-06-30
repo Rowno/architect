@@ -1,5 +1,5 @@
 /*jslint browser: true */
-/*globals Hogan: false, ace: false, require: false */
+/*globals Hogan: false, ace: false */
 
 if (!Architect) {
     var Architect = {};
@@ -251,7 +251,7 @@ if (!Architect) {
 }(Architect, Architect.EventEmitter, window.Worker));
 
 
-(function (Architect, Engines, RenderWorker, Hogan, ace, require, document, location, applicationCache, localStorage, setInterval, confirm) {
+(function (Architect, Engines, RenderWorker, Hogan, ace, document, location, applicationCache, localStorage, setInterval, confirm) {
     'use strict';
 
     function init() {
@@ -266,8 +266,8 @@ if (!Architect) {
             temp,
 
             // Editors
-            JSONMode = require('ace/mode/json').Mode,
-            HTMLMode = require('ace/mode/html').Mode,
+            JSONMode = ace.require('ace/mode/json').Mode,
+            HTMLMode = ace.require('ace/mode/html').Mode,
             templateEditor = ace.edit('template'),
             templateEditorContent = '',
             viewEditor = ace.edit('view'),
@@ -437,4 +437,4 @@ if (!Architect) {
         }
     }
     Architect.init = init;
-}(Architect, Architect.Engines, Architect.RenderWorker, Hogan, ace, require, document, location, window.applicationCache, window.localStorage, window.setInterval, window.confirm));
+}(Architect, Architect.Engines, Architect.RenderWorker, Hogan, ace, document, location, window.applicationCache, window.localStorage, window.setInterval, window.confirm));
