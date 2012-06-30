@@ -44,8 +44,8 @@ if (!Architect) {
             {
                 id: 'jade',
                 name: 'Jade',
-                version: '0.25.0',
-                size: '10.1',
+                version: '0.26.1',
+                size: '10.8',
                 source: 'https://github.com/visionmedia/jade'
             },
             {
