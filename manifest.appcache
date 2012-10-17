@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# 5672236df47d408aba32f3cef8c75781439d834d
+# 53576c31bf4fff0303c720dbe960d6a285df0d74
 
 
 CACHE:
@@ -14,7 +14,7 @@ favicon.ico
 
 js/ace/ace.js
 js/ace/mode-json.js
-js/ace//worker-json.js # Ace loads this with an odd url
+js/ace/worker-json.js
 js/ace/mode-html.js
 
 js/engines/dot.min.js

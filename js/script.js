@@ -266,8 +266,6 @@ if (!Architect) {
             temp,
 
             // Editors
-            JSONMode = ace.require('ace/mode/json').Mode,
-            HTMLMode = ace.require('ace/mode/html').Mode,
             templateEditor = ace.edit('template'),
             templateEditorContent = '',
             viewEditor = ace.edit('view'),
@@ -353,11 +351,11 @@ if (!Architect) {
 
 
         // Initialise the editors
-        templateEditor.getSession().setMode(new HTMLMode());
+        templateEditor.getSession().setMode('ace/mode/html');
         templateEditor.getSession().setValue(templateEditorContent);
-        viewEditor.getSession().setMode(new JSONMode());
+        viewEditor.getSession().setMode('ace/mode/json');
         viewEditor.getSession().setValue(viewEditorContent);
-        resultEditor.getSession().setMode(new HTMLMode());
+        resultEditor.getSession().setMode('ace/mode/html');
         resultEditor.setReadOnly(true);
 
 
