@@ -30,8 +30,8 @@ if (!Architect) {
             {
                 id: 'handlebars',
                 name: 'Handlebars.js',
-                version: '1.0.6beta',
-                size: '9.6',
+                version: '1.0.rc.1',
+                size: '10.3',
                 source: 'https://github.com/wycats/handlebars.js'
             },
             {
@@ -51,15 +51,15 @@ if (!Architect) {
             {
                 id: 'mustache',
                 name: 'Mustache.js',
-                version: '0.4.2',
-                size: '2.2',
+                version: '0.7.0',
+                size: '2.4',
                 source: 'https://github.com/janl/mustache.js'
             },
             {
                 id: 'underscore',
                 name: 'Underscore.js',
-                version: '1.3.3',
-                size: '4.6',
+                version: '1.4.2',
+                size: '4.9',
                 source: 'https://github.com/documentcloud/underscore'
             }
         ],
