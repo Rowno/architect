@@ -32,6 +32,6 @@ Below are all the HTML5 features and open source components used by Architect, a
 
 License
 -------
-Architect is licensed under the [Creative Commons Attribution-ShareAlike 3.0 Unported License](http://creativecommons.org/licenses/by-sa/3.0/).
+Architect is released under the MIT license.
 
-Copyright 2012, Roland Warmerdam.
+Copyright © 2012 Roland Warmerdam.

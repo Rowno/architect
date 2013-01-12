@@ -64,14 +64,6 @@ span[title] {
     display: none;
 }
 
-#license {
-    display: inline-block;
-    width: 88px;
-    height: 31px;
-    vertical-align: middle;
-    background: url(../img/sprite.png) -160px 0;
-}
-
 #html5 {
     display: inline-block;
     width: 210px;
@@ -81,7 +73,7 @@ span[title] {
 }
 
 footer {
-    margin: 20px 0px;
+    margin: 20px 0;
 }
 
     footer a {
