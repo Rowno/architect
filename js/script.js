@@ -1,7 +1,4 @@
-/*jslint browser: true */
-/*globals Hogan: false, ace: false */
-
-if (!Architect) {
+if (!window.Architect) {
     var Architect = {};
 }
 

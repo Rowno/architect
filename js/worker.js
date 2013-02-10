@@ -1,6 +1,15 @@
-/*globals self: false, importScripts: false */
+/*global
+    self: false
+    doT: false
+    ejs: false
+    Handlebars: false
+    Hogan: false
+    jade: false
+    Mustache: false
+    _: false
+*/
 
-(function (self, importScripts) {
+(function (self) {
     'use strict';
 
     var activeEngine,
@@ -46,7 +55,7 @@
         switch (event.data.cmd) {
         case 'init':
             activeEngine = event.data.id;
-            importScripts('engines/' + activeEngine + '.min.js');
+            self.importScripts('engines/' + activeEngine + '.min.js');
             break;
 
         case 'render':
@@ -66,4 +75,4 @@
             break;
         }
     }, false);
-}(self, importScripts));
+}(self));
