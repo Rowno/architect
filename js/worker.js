@@ -20,8 +20,9 @@
             },
             ejs: function (template, view, callback) {
                 try {
-                    callback(null, require('ejs').render(template, view));
+                    callback(null, ejs.render(template, view));
                 } catch (error) {
+                    // Strip the ReferenceError cruft
                     if (error.name === 'ReferenceError') {
                         var lastLineIndex = error.message.lastIndexOf('\n');
                         callback(error.message.substring(lastLineIndex));
