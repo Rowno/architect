@@ -31,8 +31,8 @@ if (!window.Architect) {
             }, {
                 id: 'handlebars',
                 name: 'Handlebars.js',
-                version: '1.0.rc.2',
-                size: '10.5',
+                version: '1.0.0-rc.3',
+                size: '11.3',
                 source: 'https://github.com/wycats/handlebars.js'
             }, {
                 id: 'hogan',
