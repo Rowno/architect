@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# d845a857318534598cb9be46fa1d0e11e1b4c855
+# 5e9ed3bb6950fb504c79bf76f34fabe33adbcedd
 
 
 CACHE:
@@ -18,6 +18,7 @@ js/ace/worker-json.js
 js/ace/mode-html.js
 
 js/engines/dot.min.js
+js/engines/dust.min.js
 js/engines/ejs.min.js
 js/engines/handlebars.min.js
 js/engines/hogan.min.js
