@@ -16,43 +16,43 @@ if (!window.Architect) {
                 version: '1.0.0',
                 size: '1.5',
                 source: 'https://github.com/olado/doT'
-            },
-            {
+            }, {
+                id: 'dust',
+                name: 'Dustjs',
+                version: '1.2.2',
+                size: '7.5',
+                source: 'https://github.com/linkedin/dustjs'
+            }, {
                 id: 'ejs',
                 name: 'EJS',
                 version: '0.7.2',
                 size: '2.2',
                 source: 'https://github.com/visionmedia/ejs'
-            },
-            {
+            }, {
                 id: 'handlebars',
                 name: 'Handlebars.js',
                 version: '1.0.rc.2',
                 size: '10.5',
                 source: 'https://github.com/wycats/handlebars.js'
-            },
-            {
+            }, {
                 id: 'hogan',
                 name: 'Hogan.js',
                 version: '2.0.0',
                 size: '2.5',
                 source: 'https://github.com/twitter/hogan.js'
-            },
-            {
+            }, {
                 id: 'jade',
                 name: 'Jade',
                 version: '0.27.6',
                 size: '11.0',
                 source: 'https://github.com/visionmedia/jade'
-            },
-            {
+            }, {
                 id: 'mustache',
                 name: 'Mustache.js',
                 version: '0.7.2',
                 size: '2.2',
                 source: 'https://github.com/janl/mustache.js'
-            },
-            {
+            }, {
                 id: 'underscore',
                 name: 'Underscore.js',
                 version: '1.4.4',

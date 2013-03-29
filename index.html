@@ -149,6 +149,13 @@
 {{ } }}
 </select></script>
 
+<script id="template-default-dust" type="text/x-dust"><h1>{header}</h1>
+
+{#items}
+    <option value="{id}"{#active} selected{/active}>{name}</option>
+{/items}
+</select></script>
+
 
 <script id="template-default-ejs" type="text/x-ejs"><h1><%=header%></h1>
 

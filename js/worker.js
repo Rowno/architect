@@ -1,11 +1,12 @@
 /*global
-    self: false
-    doT: false
-    ejs: false
-    Handlebars: false
-    Hogan: false
-    jade: false
-    Mustache: false
+    self: false,
+    doT: false,
+    dust: false,
+    ejs: false,
+    Handlebars: false,
+    Hogan: false,
+    jade: false,
+    Mustache: false,
     _: false
 */
 
@@ -17,6 +18,9 @@
             dot: function (template, view, callback) {
                 var compiledTemplate = doT.template(template);
                 callback(null, compiledTemplate(view));
+            },
+            dust: function (template, view, callback) {
+                dust.renderSource(template, view, callback);
             },
             ejs: function (template, view, callback) {
                 try {
@@ -44,6 +48,7 @@
                 callback(null, compiledTemplate(view));
             },
             mustache: function (template, view, callback) {
+                /*jshint camelcase: false */
                 callback(null, Mustache.to_html(template, view));
             },
             underscore: function (template, view, callback) {
