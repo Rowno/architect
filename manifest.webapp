@@ -1,7 +1,7 @@
 {
     "name": "Architect - Javascript Template Editor",
     "description": "Edit Javascript templates in various engines",
-    "launch_path": "http://rowno.github.io/architect/",
+    "launch_path": "/architect/",
     "icons": {
         "128": "/architect/chrome-web-store/icon-128.png"
     },
