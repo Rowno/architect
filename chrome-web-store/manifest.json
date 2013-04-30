@@ -2,9 +2,9 @@
   "app": {
     "launch": {
       "urls": [
-        "http://rowno.github.com/architect/"
+        "http://rowno.github.io/architect/"
       ],
-      "web_url": "http://rowno.github.com/architect/",
+      "web_url": "http://rowno.github.io/architect/",
       "container": "tab"
     }
   },
