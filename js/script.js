@@ -13,26 +13,26 @@ if (!window.Architect) {
             {
                 id: 'dot',
                 name: 'doT.js',
-                version: '1.0.0',
+                version: '1.0.1',
                 size: '1.5',
                 source: 'https://github.com/olado/doT'
             }, {
                 id: 'dust',
                 name: 'Dustjs',
-                version: '1.2.2',
-                size: '7.5',
+                version: '2.0.3',
+                size: '7.6',
                 source: 'https://github.com/linkedin/dustjs'
             }, {
                 id: 'ejs',
                 name: 'EJS',
-                version: '0.7.2',
+                version: '0.8.4',
                 size: '2.2',
                 source: 'https://github.com/visionmedia/ejs'
             }, {
                 id: 'handlebars',
                 name: 'Handlebars.js',
-                version: '1.0.0-rc.3',
-                size: '11.3',
+                version: '1.0.0',
+                size: '11.7',
                 source: 'https://github.com/wycats/handlebars.js'
             }, {
                 id: 'hogan',
@@ -43,8 +43,8 @@ if (!window.Architect) {
             }, {
                 id: 'jade',
                 name: 'Jade',
-                version: '0.27.6',
-                size: '11.0',
+                version: '0.35.0',
+                size: '52.6',
                 source: 'https://github.com/visionmedia/jade'
             }, {
                 id: 'mustache',
@@ -55,8 +55,8 @@ if (!window.Architect) {
             }, {
                 id: 'underscore',
                 name: 'Underscore.js',
-                version: '1.4.4',
-                size: '4.6',
+                version: '1.5.2',
+                size: '5.0',
                 source: 'https://github.com/documentcloud/underscore'
             }
         ],
