@@ -19,20 +19,20 @@ if (!window.Architect) {
             }, {
                 id: 'dust',
                 name: 'Dustjs',
-                version: '2.0.3',
-                size: '7.6',
+                version: '2.3.1',
+                size: '9.0',
                 source: 'https://github.com/linkedin/dustjs'
             }, {
                 id: 'ejs',
                 name: 'EJS',
-                version: '0.8.4',
-                size: '2.2',
+                version: '0.8.5',
+                size: '2.7',
                 source: 'https://github.com/visionmedia/ejs'
             }, {
                 id: 'handlebars',
                 name: 'Handlebars.js',
-                version: '1.0.0',
-                size: '11.7',
+                version: '1.3.0',
+                size: '13.9',
                 source: 'https://github.com/wycats/handlebars.js'
             }, {
                 id: 'hogan',
@@ -43,14 +43,14 @@ if (!window.Architect) {
             }, {
                 id: 'jade',
                 name: 'Jade',
-                version: '0.35.0',
-                size: '52.6',
+                version: '1.1.5',
+                size: '91.8',
                 source: 'https://github.com/visionmedia/jade'
             }, {
                 id: 'mustache',
                 name: 'Mustache.js',
-                version: '0.7.2',
-                size: '2.2',
+                version: '0.8.1',
+                size: '2.0',
                 source: 'https://github.com/janl/mustache.js'
             }, {
                 id: 'underscore',
