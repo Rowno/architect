@@ -53,6 +53,12 @@ if (!window.Architect) {
                 size: '2.0',
                 source: 'https://github.com/janl/mustache.js'
             }, {
+                id: 'nunjucks',
+                name: 'Nunjucks',
+                version: '1.0.0',
+                size: '19.8',
+                source: 'https://github.com/jlongster/nunjucks'
+            }, {
                 id: 'underscore',
                 name: 'Underscore.js',
                 version: '1.5.2',

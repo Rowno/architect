@@ -7,11 +7,15 @@
     Hogan: false,
     jade: false,
     Mustache: false,
+    nunjucks: false,
     _: false
 */
 
 (function (self) {
     'use strict';
+
+    // Emulate the window object
+    self.window = self;
 
     var activeEngine,
         engines = {
@@ -50,6 +54,9 @@
             mustache: function (template, view, callback) {
                 /*jshint camelcase: false */
                 callback(null, Mustache.to_html(template, view));
+            },
+            nunjucks: function (template, view, callback) {
+                callback(null, nunjucks.renderString(template, view));
             },
             underscore: function (template, view, callback) {
                 callback(null, _.template(template, view));

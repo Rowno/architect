@@ -204,6 +204,15 @@ select
 </select></script>
 
 
+<script id="template-default-nunjucks" type="text/x-nunjucks"><h1>{{header}}</h1>
+
+<select>
+{% for item in items %}
+    <option value="{{item.id}}"{% if item.active %} selected{% endif %}>{{item.name}}</option>
+{% endfor %}
+</select></script>
+
+
 <script id="template-default-underscore" type="text/x-underscore"><h1><%=header%></h1>
 
 <select>
